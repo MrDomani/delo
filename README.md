@@ -3,6 +3,15 @@
 Differential Evolution (DE) optimization algorithms perform satisfactorily even on complex problems in higher dimensionality. However, it is difficult to *a priori* choose optimal parameters.
 In this package, we propose **DElo** (DE with adaptation based on Elo rating system). Elo rating, originally used in chess, is a way to measure dynamic fitness.
 
+## Installation
+Navigate to folder `/src/delo` and execute command
+```
+pip install -e .
+```
+That installs a **developer** version - any changes to files in package source will immediately take effect. No reintalls required.
+
+To install a **regular** version, just execute without `-e` option.
+
 ## References:
 1. [SHADE](https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.306.5259&rep=rep1&type=pdf)
 2. "For a more comprehensive introduction to ES, see Beyer and Schwefel (2002)" ~ [preprint from 2021: "Hyperparameter Optimization: Foundations, Algorithms, Best Practices and Open Challenges"](https://www.researchgate.net/publication/353234152_Hyperparameter_Optimization_Foundations_Algorithms_Best_Practices_and_Open_Challenges?pli=1&loginT=7g6vBIQMadxoexmLGqhqYgf_hbU7syYOMK2fVRg8NuujDPL6zUglx3nMuG4grxh27pcimvyCLP3fk9K7kqieWvrC4agyDrs5FQ&uid=UYtHAAH0ScOSPfHCn0vHrwlgRHalOpRtqDfj&cp=re442_pb_hnsg_naas_p113&ch=reg&utm_medium=email&utm_source=researchgate&utm_campaign=re442&utm_term=re442_pb_hnsg_naas&utm_content=re442_pb_hnsg_naas_p113)
