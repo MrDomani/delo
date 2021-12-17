@@ -4,7 +4,7 @@ Differential Evolution (DE) optimization algorithms perform satisfactorily even 
 In this package, we propose **DElo** (DE with adaptation based on Elo rating system). Elo rating, originally used in chess, is a way to measure dynamic fitness.
 
 ## Installation
-Navigate to folder `/src/delo` and execute command
+Navigate to repository root folder and execute command
 ```
 pip install -e .
 ```
