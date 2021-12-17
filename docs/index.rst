@@ -18,3 +18,28 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
+delo
+========
+
+Differential Evolution (DE) optimization algorithms perform satisfactorily even on complex problems in higher dimensionality. However, it is difficult to *a priori* choose optimal parameters.
+In this package, we propose **DElo** (DE with adaptation based on Elo rating system). Elo rating, originally used in chess, is a way to measure dynamic fitness.
+
+Installation
+------------
+
+Clone repo and run from root:
+
+    pip install .
+
+Contribute
+----------
+
+- Issue Tracker: github.com/MrDomani/delo/issues
+- Source Code: github.com/MrDomani/delo
+
+
+License
+-------
+
+The project is licensed under the MIT license.
