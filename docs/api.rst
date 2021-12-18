@@ -1,5 +1,6 @@
 API
 ===
 
-.. automodule:: delo
-    :members:
+.. autosummary::
+
+    delo
