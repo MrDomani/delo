@@ -30,7 +30,8 @@ author = 'Przemyslaw Chojecki, Pawel Morgen, Michal Okulewicz'
 # ones.
 extensions = ['sphinx.ext.napoleon',
               'sphinx.ext.autodoc',
-              'sphinx.ext.autosummary']
+              'sphinx.ext.autosummary',
+              'sphinx.ext.duration']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -55,3 +56,4 @@ html_theme = 'alabaster'
 
 autosummary_generate = True
 autosummary_generate_overwrite = True
+autosummary_ignore_module_all = False
