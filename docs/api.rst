@@ -5,3 +5,6 @@ API
    :toctree: generated
 
    delo
+
+.. automodule:: delo
+    :members:
