@@ -1,6 +1,5 @@
 from .DElo import DElo
 import numpy as np
-from scipy.special import expit
 
 
 class DElo_QualityOfImprovement(DElo):

@@ -1,5 +1,4 @@
 from .Logger import *
-import pickle
 import os
 
 class PickleLogger(Logger):
