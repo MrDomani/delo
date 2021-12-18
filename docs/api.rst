@@ -2,5 +2,7 @@ API
 ===
 
 .. autosummary::
+    :toctree: generated
 
-    delo
+    delo.DElo
+    delo.AbstractDElo
