@@ -9,6 +9,8 @@ Welcome to delo's documentation!
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
+   usage
+   api
 
 
 
@@ -30,7 +32,7 @@ Installation
 
 Clone repo and run from root:
 
-    pip install .
+    `pip install .`
 
 Contribute
 ----------
