@@ -11,14 +11,12 @@ class DElo_ties_and_QI(DElo):
     Utilized mutation strategy: p-best. Succesful members from past will be stored in archive.
     Restart condition: minimum absolute dispersion across dimension.
 
-    Ties
-    ----
+    Notes
+    -----
     A history of several (`history_for_ties_size`) previous function differences is recorded.
     Whenever a positive new function difference is less than `win_tie` percentile of previous function differences, it is a tie. Otherwise - a win.
     Whenever a negative new function difference is less than `tie_loss` percentile of history, it is a tie. Otherwise - a loss.
 
-    Quality of Improvement
-    ----------------------
     Elo ratings, apart from predicting victory odds, are used to predict relative function difference.
     The prediction function is (rating_difference * `expectation_factor`).
     """
