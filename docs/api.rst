@@ -3,6 +3,6 @@ API
 
 .. autosummary::
     :toctree: generated
+    :recursive:
 
-    delo.DElo
-    delo.AbstractDElo
+    delo
