@@ -1,3 +1,9 @@
+"""
+DElo
+
+Some more exact documantation about DElo package
+"""
+
 from .DElo import DElo
 from .SHADE import SHADE
 from .DescribedFunction import DescribedFunction
