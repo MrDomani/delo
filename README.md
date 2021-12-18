@@ -1,5 +1,6 @@
 # Differenital Evolution with Elo-based adaptation
-[![Documentation Status](https://readthedocs.org/projects/delo/badge/?version=latest)](https://delo.readthedocs.io/en/latest/?badge=latest)
+[![Documentation Status](https://readthedocs.org/projects/delo/badge/?version=latest)](https://delo.readthedocs.io/en/latest/?badge=latest) <br>
+[documentation](https://delo.readthedocs.io/en/latest/index.html)
 ## Overview
 Differential Evolution (DE) optimization algorithms perform satisfactorily even on complex problems in higher dimensionality. However, it is difficult to *a priori* choose optimal parameters.
 In this package, we propose **DElo** (DE with adaptation based on Elo rating system). Elo rating, originally used in chess, is a way to measure dynamic fitness.
