@@ -503,7 +503,6 @@ class LogReader:
                                'win_tie_boundary': 'float',
                                'tie_loss_boundary': 'float',
                                'restarts': 'int',
-                               'attempts_of_back_to_domain': 'int',
                                'variation_for_CR': 'float',
                                'scale_for_F': 'float',
                                'generations_after_last_restart_restarting': 'int',
