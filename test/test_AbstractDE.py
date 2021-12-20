@@ -104,7 +104,7 @@ class TestAbstractDERestarts(TestAbstractDESetUp):
 
         self.assertTrue(self.solver.restarts == 0)  # 1000 is too litle to cause the restart (almost surely)
         self.assertTrue(
-            self.solver.generations_processed == 10 - 1)  # There were 1003 max_f_evals and 100 of them were used every generation + 100 was used during initization
+            self.solver._generations_processed == 10 - 1)  # There were 1003 max_f_evals and 100 of them were used every generation + 100 was used during initization
         self.assertTrue(
             self.solver._remaining_evals == 3)  # After 10 generations, 3 was left and it was less than 100, so optimization stopped
         self.assertTrue(self.solver.archive.shape[

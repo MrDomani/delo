@@ -45,15 +45,15 @@ class AbstractDE(ABC):
         self.number_of_best = int(max(np.floor(self.p_best_rate * self.population_size),
                                       3))  # at least 3, so that range [2, number_of_best) will have at least one integer
         self._remaining_evals = 0
-        self.generations_processed = 0
+        self._generations_processed = 0
 
-        self.best_member_ever = None
-        self.best_f_value_ever = None
+        self._best_member_ever = None
+        self._best_f_value_ever = None
 
         self.variation_for_CR = variation_for_CR
         self.scale_for_F = scale_for_F
 
-        self.number_of_improvements = 0
+        self._number_of_improvements = 0
 
         self._process_logger_init_args(logger_kwargs, logger)
         self.logger.AbstractDE_init(self.restart_eps_x, self.restart_eps_y, self.use_archive,
@@ -112,7 +112,7 @@ class AbstractDE(ABC):
         Tuple
             `solution` (member with lowest f-value), `best_f_value`.
         """
-        return self.best_member_ever, self.best_f_value_ever
+        return self._best_member_ever, self._best_f_value_ever
 
     def optimize(self, described_function, max_f_evals=1000, print_every=None, restarts_handled_externally=False,
                  rng_seed=None):
@@ -156,9 +156,9 @@ class AbstractDE(ABC):
         while self._remaining_evals >= self.population_size:
             self.logger.start_generation(generations_done, generations_after_last_restart)
             if self.printer.generation(generations_done, generations_after_last_restart,
-                                       self.current_best_f, self.best_f_value_ever,
-                                       self.number_of_improvements):
-                self.number_of_improvements = 0  # this will reset if information was printed
+                                       self.current_best_f, self._best_f_value_ever,
+                                       self._number_of_improvements):
+                self._number_of_improvements = 0  # this will reset if information was printed
             self._process_generation()
 
             # restart condition
@@ -174,10 +174,10 @@ class AbstractDE(ABC):
             generations_done += 1
             generations_after_last_restart += 1
 
-        self.logger.end_optimization(self.generations_processed, self.best_member_ever, self.best_f_value_ever,
+        self.logger.end_optimization(self._generations_processed, self._best_member_ever, self._best_f_value_ever,
                                      self.restarts)
         self.printer.optimizing_complete(self.restarts, generations_done, self._remaining_evals,
-                                         self.generations_processed, self.best_f_value_ever)
+                                         self._generations_processed, self._best_f_value_ever)
 
         return self.get_solution()
 
@@ -214,7 +214,7 @@ class AbstractDE(ABC):
         self._reset_CR_and_F()
         self._init_population_and_reset_p_best()
         self._delta_f = np.zeros(self.population_size)
-        self.number_of_improvements = 0
+        self._number_of_improvements = 0
 
     def _clear_archive(self):
         if self.use_archive:
@@ -270,11 +270,11 @@ class AbstractDE(ABC):
         If no solution is available, then it is set.
         Assuming, that self.current_best_* are up to date.
         """
-        if self.best_f_value_ever is None or self.current_best_f < self.best_f_value_ever:
-            self.best_member_ever = self._population[self.current_best_i]
-            self.best_f_value_ever = self.current_best_f
+        if self._best_f_value_ever is None or self.current_best_f < self._best_f_value_ever:
+            self._best_member_ever = self._population[self.current_best_i]
+            self._best_f_value_ever = self.current_best_f
 
-            self.logger.update_solution(self.best_member_ever, self.best_f_value_ever)
+            self.logger.update_solution(self._best_member_ever, self._best_f_value_ever)
 
     def _process_generation(self):
         """Process one generation (iteration) of optimizing process. """
@@ -283,7 +283,7 @@ class AbstractDE(ABC):
         self._crossover()
         self._evaluate()
         self._selection()
-        self.generations_processed += 1
+        self._generations_processed += 1
 
     def _prepare_for_generation_processing(self):
         """Generate and set all parameters (Fs and CRs included) necessary for mutation"""
@@ -433,7 +433,7 @@ class AbstractDE(ABC):
         return have_improved
 
     def _process_evaluation_results(self, have_improved):  # it is small function in DE, but it is overwritten in DElo
-        self.number_of_improvements += sum(have_improved)
+        self._number_of_improvements += sum(have_improved)
         self._update_archive(have_improved)
 
     def _update_archive(self, indices_to_archive):
