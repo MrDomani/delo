@@ -16,10 +16,22 @@ class DElo(AbstractDE):
     class Players:
         def __init__(self, number_of_players, id, CR, F, rating):
             self.number_of_players = number_of_players
-            self.id = id
-            self.CR = CR
-            self.F = F
+            self._id = id
+            self._CR = CR
+            self._F = F
             self.rating = rating
+
+        @property
+        def id(self):
+            return self._id
+
+        @property
+        def CR(self):
+            return self._CR
+
+        @property
+        def F(self):
+            return self._F
 
         def to_numpy(self):
             return np.array([self.id,
