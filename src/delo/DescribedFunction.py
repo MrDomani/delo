@@ -25,7 +25,6 @@ class DescribedFunction:
     --------
     >>> described_arcsin = delo.DescribedFunction(np.argsin, dimension=1,
     ...                    domain_lower_limit=-1, domain_upper_limit=1)
-
     DescribedFunction was created to be used in DE algorithms. Specifying domain limits is required
     >>> described_square_root = delo.DescribedFunction(np.sqrt, dimension=1,
     ...                         domain_lower_limit=0, domain_upper_limit=5)
@@ -56,8 +55,8 @@ class DescribedFunction:
             raise ImproperIntException(f"Provided dimension = {dimension} is smaller than 1")
         self.dimension = dimension
 
-        self.domain_lower_limit = self.process_domain_limit(domain_lower_limit, lower=True)
-        self.domain_upper_limit = self.process_domain_limit(domain_upper_limit)
+        self.domain_lower_limit = self._process_domain_limit(domain_lower_limit, lower=True)
+        self.domain_upper_limit = self._process_domain_limit(domain_upper_limit)
 
         if any(self.domain_upper_limit - self.domain_lower_limit < 0):
             raise ImproperDomainLimitsException()
@@ -69,7 +68,7 @@ class DescribedFunction:
 
         self.name = name
 
-    def process_domain_limit(self, limit, lower=False):
+    def _process_domain_limit(self, limit, lower=False):
         if limit is None:
             out = 10 * np.ones(self.dimension)
             if lower:

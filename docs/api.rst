@@ -3,6 +3,9 @@ API
 
 .. autosummary::
     :toctree: generated
-    :recursive:
 
-    delo
+    delo.DElo
+    delo.SHADE
+    delo.DescribedFunction
+    delo.DElo_ties_and_QI
+
