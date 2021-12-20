@@ -105,7 +105,7 @@ class DElo(AbstractDE):
                         np.column_stack((self._CR, self._F))).argmin(axis=0)
         self._indices_of_selected_players = indices
 
-        self.logger.indexes_of_selected_players(self._indices_of_selected_players)
+        self.logger.indices_of_selected_players(self._indices_of_selected_players)
 
     def _draw_M_CR_and_M_F(self):
         quantile = 1-self.portion_of_top_players
@@ -148,8 +148,8 @@ class DElo(AbstractDE):
         task_updates = self.task_elo_rating_rate * (expected_results - actual_results)
         self._task_ratings += task_updates
 
-        self.logger.elo_rationgs(expected_results, actual_results, player_update,
-                                 self.players.rating, task_updates, self._task_ratings)
+        self.logger.elo_ratings(expected_results, actual_results, player_update,
+                                self.players.rating, task_updates, self._task_ratings)
     
     def _check_restart_condition(self):
         """

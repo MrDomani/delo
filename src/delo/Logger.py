@@ -362,8 +362,8 @@ class Logger:
         self.log_warning('players amount',
                          f'`players_amount` = {players_amount} is not a square of natural number.')
 
-    def elo_rationgs(self, expected_results, actual_results, player_updates,
-                     player_ratings, task_updates, task_ratings):
+    def elo_ratings(self, expected_results, actual_results, player_updates,
+                    player_ratings, task_updates, task_ratings):
         self.log('expected_results', expected_results, array=True)
         self.log('actual_results', actual_results, array=True)
         self.log('player_updates', player_updates, array=True)
@@ -375,7 +375,7 @@ class Logger:
         self.log('top_players_indices', top_players_indices, array=True)
         self.log('indices_of_drawn_players_to_optimize', top_players_indices_r, array=True)
 
-    def indexes_of_selected_players(self, indices_of_selected_players):
+    def indices_of_selected_players(self, indices_of_selected_players):
         self.log('indices_of_selected_players', indices_of_selected_players, array=True)
     
     # DElo_ties
