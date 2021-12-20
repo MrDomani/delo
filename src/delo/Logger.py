@@ -128,14 +128,14 @@ class FakeLogger:
     def improper_player_amount(self, players_amount):
         pass
 
-    def elo_rationgs(self, expected_results, actual_results, player_update,
+    def elo_ratings(self, expected_results, actual_results, player_update,
                      players_rating, task_updates, task_ratings):
         pass
 
     def top_players(self, top_players_indexes, top_players_indexes_r):
         pass
 
-    def indexes_of_selected_players(self, indexes_of_selected_players):
+    def indices_of_selected_players(self, indexes_of_selected_players):
         pass
 
     def actual_results(self, actual_results):
