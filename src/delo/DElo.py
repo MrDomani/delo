@@ -13,7 +13,7 @@ class DElo(AbstractDE):
     Restart condition: minimum absolute dispersion across dimension.
     """
 
-    class Players():
+    class Players:
         def __init__(self, number_of_players, id, CR, F, rating):
             self.number_of_players = number_of_players
             self.id = id
@@ -67,17 +67,17 @@ class DElo(AbstractDE):
         self.number_of_improvements = 0
         self.portion_of_top_players = portion_of_top_players
 
-        self.task_ratings = np.zeros(population_size)
+        self._task_ratings = np.zeros(population_size)
 
         self.player_elo_rating_rate = player_elo_rating_rate
         self.task_elo_rating_rate = task_elo_rating_rate
 
-        self.initialize_players(players_amount)
+        self._initialize_players(players_amount)
 
         self.logger.DElo_init(portion_of_top_players, self.player_elo_rating_rate,
                               self.task_elo_rating_rate, self.players.number_of_players)
 
-    def initialize_players(self, players_amount):
+    def _initialize_players(self, players_amount):
         side_grid_length = int(np.sqrt(players_amount).round())
         actual_player_amount = side_grid_length ** 2
         if players_amount != actual_player_amount:
@@ -89,25 +89,25 @@ class DElo(AbstractDE):
                                     F=np.tile(np.linspace(0, 1, num=side_grid_length), side_grid_length),
                                     rating=np.zeros(actual_player_amount))
 
-    def reset_CR_and_F(self):
+    def _reset_CR_and_F(self):
         """W SHADE - restart historii. W DElo - restart ratingów"""
         self.players.rating = np.zeros(self.players.number_of_players)
-        self.task_ratings = np.zeros(self.population_size)
-        self.CR = np.empty(self.population_size)
-        self.F = np.empty(self.population_size)
+        self._task_ratings = np.zeros(self.population_size)
+        self._CR = np.empty(self.population_size)
+        self._F = np.empty(self.population_size)
 
-    def prepare_for_generation_processing(self):
-        super().prepare_for_generation_processing()
-        self.update_selected_players()
+    def _prepare_for_generation_processing(self):
+        super()._prepare_for_generation_processing()
+        self._update_selected_players()
 
-    def update_selected_players(self):
+    def _update_selected_players(self):
         indices = cdist(np.column_stack((self.players.CR, self.players.F)),
-                        np.column_stack((self.CR, self.F))).argmin(axis=0)
-        self.indexes_of_selected_players = indices
+                        np.column_stack((self._CR, self._F))).argmin(axis=0)
+        self._indices_of_selected_players = indices
 
-        self.logger.indexes_of_selected_players(self.indexes_of_selected_players)
+        self.logger.indexes_of_selected_players(self._indices_of_selected_players)
 
-    def draw_M_CR_and_M_F(self):
+    def _draw_M_CR_and_M_F(self):
         quantile = 1-self.portion_of_top_players
         top_players_bool = self.players.rating >= np.quantile(self.players.rating, quantile)
         top_players_indexes = np.arange(self.players.number_of_players)[top_players_bool]
@@ -117,41 +117,41 @@ class DElo(AbstractDE):
 
         return self.players.CR[top_players_indexes[r]], self.players.F[top_players_indexes[r]]
 
-    def selection(self):
-        have_improved = self.set_delta_f_and_get_improvement_bool()
-        self.process_evaluation_results(have_improved)
-        self.replace_with_improved_members(have_improved)
+    def _selection(self):
+        have_improved = self._set_delta_f_and_get_improvement_bool()
+        self._process_evaluation_results(have_improved)
+        self._replace_with_improved_members(have_improved)
 
-    def process_evaluation_results(self, have_improved):
-        super().process_evaluation_results(have_improved)
-        expected_results = self.calculate_expected_results()
-        actual_results = self.calculate_actual_results(have_improved)
-        self.update_elo_ratings(expected_results, actual_results)
+    def _process_evaluation_results(self, have_improved):
+        super()._process_evaluation_results(have_improved)
+        expected_results = self._calculate_expected_results()
+        actual_results = self._calculate_actual_results(have_improved)
+        self._update_elo_ratings(expected_results, actual_results)
 
-    def calculate_expected_results(self):
-        rating_differences = self.players.rating[self.indexes_of_selected_players] - self.task_ratings
+    def _calculate_expected_results(self):
+        rating_differences = self.players.rating[self._indices_of_selected_players] - self._task_ratings
         return expit(rating_differences)
 
-    def calculate_actual_results(self, have_improved):
+    def _calculate_actual_results(self, have_improved):
         return have_improved.astype(int)
 
-    def update_elo_ratings(self, expected_results, actual_results):
+    def _update_elo_ratings(self, expected_results, actual_results):
         update = self.player_elo_rating_rate * (actual_results - expected_results)
 
         # note, that if one player plays more than one in the generation,
         # its rating from the beginning of the generation is taken into calculations
         player_update = np.zeros(self.players.number_of_players)
         for i in range(self.population_size):  # len(self.indexes_of_selected_players) == self.population_size
-            player_update[self.indexes_of_selected_players[i]] += update[i]
+            player_update[self._indices_of_selected_players[i]] += update[i]
         self.players.rating += player_update  # it is 0 for unselected players
 
         task_updates = self.task_elo_rating_rate * (expected_results - actual_results)
-        self.task_ratings += task_updates
+        self._task_ratings += task_updates
 
         self.logger.elo_rationgs(expected_results, actual_results, player_update,
-                                 self.players.rating, task_updates, self.task_ratings)
+                                 self.players.rating, task_updates, self._task_ratings)
     
-    def check_restart_condition(self):
+    def _check_restart_condition(self):
         """
         Restart will occur in one of two cases:
         1) If absolute distance between members is too small
@@ -166,10 +166,10 @@ class DElo(AbstractDE):
             return False
         cond_restart = False
 
-        if np.min(self.population.max(axis=0) - self.population.min(axis=0)) <= self.restart_eps_x:
-            self.logger.restarting_cond_x(np.min(self.population.max(axis=0) - self.population.min(axis=0)),
-                                     np.abs(self.population).max(),
-                                     self.restart_eps_x, abs=True)
+        if np.min(self._population.max(axis=0) - self._population.min(axis=0)) <= self.restart_eps_x:
+            self.logger.restarting_cond_x(np.min(self._population.max(axis=0) - self._population.min(axis=0)),
+                                          np.abs(self._population).max(),
+                                          self.restart_eps_x, abs=True)
             cond_restart = True
         if (self.current_worst_f - self.current_best_f) <= self.restart_eps_y: 
             self.logger.restarting_cond_y((self.current_worst_f - self.current_best_f),

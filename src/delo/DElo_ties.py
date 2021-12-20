@@ -33,25 +33,25 @@ class DElo_ties(DElo):
                          **logger_kwargs)
 
         self.history_for_ties_size = history_for_ties_size
-        self.history_for_ties_index = 0  # when this index exceed history_for_ties_size, it is set back to 0
+        self._history_for_ties_index = 0  # when this index exceed history_for_ties_size, it is set back to 0
         self.win_tie = win_tie
         self.tie_loss = tie_loss
-        self.history_for_ties = None
+        self._history_for_ties = None
 
-        self.logger.DElo_ties_init(self.history_for_ties, self.win_tie, self.tie_loss)
+        self.logger.DElo_ties_init(self._history_for_ties, self.win_tie, self.tie_loss)
 
     def optimize(self, described_function=None, max_f_evals=1000, print_every=None,
                  restarts_handled_externally=False, rng_seed=None):
-        self.history_for_ties = np.zeros((self.history_for_ties_size, self.population_size))
+        self._history_for_ties = np.zeros((self.history_for_ties_size, self.population_size))
         super().optimize(described_function=described_function, max_f_evals=max_f_evals, print_every=print_every,
                          restarts_handled_externally=restarts_handled_externally, rng_seed=rng_seed)
 
-    def selection(self):
-        f_difference = self.population_f_value - self.population_trial_f_value  # we want this to be positive
-        self.history_for_ties[self.history_for_ties_index] = f_difference
-        self.history_for_ties_index += 1
-        if self.history_for_ties_index == self.history_for_ties_size:
-            self.history_for_ties_index = 0
+    def _selection(self):
+        f_difference = self._population_f_value - self._population_trial_f_value  # we want this to be positive
+        self._history_for_ties[self._history_for_ties_index] = f_difference
+        self._history_for_ties_index += 1
+        if self._history_for_ties_index == self.history_for_ties_size:
+            self._history_for_ties_index = 0
         self.delta_f = f_difference * (f_difference > 0)
 
         indices_for_swap = (f_difference >= 0)  # True is a win for a player
@@ -60,10 +60,10 @@ class DElo_ties(DElo):
         self.logger.indices_for_swap(f_difference, self.delta_f, indices_for_swap)
 
         # ties
-        positive_history_for_ties = self.history_for_ties[self.history_for_ties >= 0]  # one dimensional np.array
+        positive_history_for_ties = self._history_for_ties[self._history_for_ties >= 0]  # one dimensional np.array
         win_tie_threshold = edited_quantile(positive_history_for_ties, self.win_tie)
 
-        negative_history_for_ties = self.history_for_ties[self.history_for_ties < 0]  # one dimensional np.array
+        negative_history_for_ties = self._history_for_ties[self._history_for_ties < 0]  # one dimensional np.array
         tie_loss_threshold = edited_quantile(negative_history_for_ties, 1-self.tie_loss)  # self.tie_loss == 0.2 means 20% of losses will be ties
 
         ties = np.ones(len(self.delta_f), dtype="bool")
@@ -71,18 +71,18 @@ class DElo_ties(DElo):
         ties[self.delta_f < tie_loss_threshold] = False
 
 
-        self.update_archive(indices_for_swap)
-        self.population[indices_for_swap] = self.population_trial[indices_for_swap]
-        self.population_f_value[indices_for_swap] = self.population_trial_f_value[indices_for_swap]
+        self._update_archive(indices_for_swap)
+        self._population[indices_for_swap] = self._population_trial[indices_for_swap]
+        self._population_f_value[indices_for_swap] = self._population_trial_f_value[indices_for_swap]
 
-        self.logger.population(self.population, self.population_f_value)
+        self.logger.population(self._population, self._population_f_value)
 
-        expected_results = self.calculate_expected_results()
+        expected_results = self._calculate_expected_results()
         actual_results = indices_for_swap.astype(float)
         actual_results[ties] = 1/2
-        self.update_elo_ratings(expected_results, actual_results)
-        self.set_p_best()
-        self.update_solution()
+        self._update_elo_ratings(expected_results, actual_results)
+        self._set_p_best()
+        self._update_solution()
 
 
 

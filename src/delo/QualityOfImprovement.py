@@ -26,20 +26,20 @@ class DElo_QualityOfImprovement(DElo):
         self.expectation_factor=expectation_factor
         self.logger.log('expectation_factor', expectation_factor, False)
                          
-    def calculate_expected_results(self):
-        rating_differences = self.players.rating[self.indexes_of_selected_players] - self.task_ratings
+    def _calculate_expected_results(self):
+        rating_differences = self.players.rating[self._indices_of_selected_players] - self._task_ratings
         rating_differences[rating_differences < 0] = 0.0
         rating_differences[rating_differences > 1] = 1.0
         expected_relative_difference = rating_differences * self.expectation_factor
         return expected_relative_difference
         
-    def calculate_actual_results(self, have_improved):
+    def _calculate_actual_results(self, have_improved):
         """
         Jeśli delta_f = 0, to zwracamy zawsze 0
         Jeśli delta_f != 0 i f_value = 0. to zwracamy 1
         Jeśli delta_f/f_value > 1, to ścinamy do 1
         """
-        out = (self.delta_f != 0).astype(np.float64)
-        actual_results = np.true_divide(self.delta_f, np.abs(self.population_f_value), out=out, where=self.population_f_value!=0)
+        out = (self._delta_f != 0).astype(np.float64)
+        actual_results = np.true_divide(self._delta_f, np.abs(self._population_f_value), out=out, where=self._population_f_value != 0)
         actual_results[actual_results > 1] = 1
         return actual_results    

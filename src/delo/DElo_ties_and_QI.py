@@ -89,7 +89,7 @@ class DElo_ties_and_QI(DElo):
         super().optimize(described_function=described_function, max_f_evals=max_f_evals, print_every=print_every,
                          restarts_handled_externally=restarts_handled_externally, rng_seed=rng_seed)
                          
-    def set_delta_f_and_get_improvement_bool(self):
+    def _set_delta_f_and_get_improvement_bool(self):
         """
 
         Returns
@@ -97,7 +97,7 @@ class DElo_ties_and_QI(DElo):
         bool np vector.
             True = f value of trial member is better that original
         """
-        f_difference = self.population_f_value - self.population_trial_f_value  # we want this to be positive
+        f_difference = self._population_f_value - self._population_trial_f_value  # we want this to be positive
         self.history_for_ties[self.history_for_ties_index] = f_difference
         self.history_for_ties_index += 1
         if self.history_for_ties_index == self.history_for_ties_size:
@@ -110,16 +110,16 @@ class DElo_ties_and_QI(DElo):
         self.logger.indices_for_swap(f_difference, self.delta_f, have_improved)
         return have_improved
                          
-    def calculate_expected_results(self):
-        rating_differences = self.players.rating[self.indexes_of_selected_players] - self.task_ratings
-        victory_odds = super().calculate_expected_results()
+    def _calculate_expected_results(self):
+        rating_differences = self.players.rating[self._indices_of_selected_players] - self._task_ratings
+        victory_odds = super()._calculate_expected_results()
         rating_differences[rating_differences < 0] = 0.0
         rating_differences[rating_differences > 1] = 1.0
         expected_relative_difference = rating_differences * self.expectation_factor
         return {'victory': victory_odds, 
                 'relative_difference': expected_relative_difference}
         
-    def calculate_actual_results(self, have_improved):
+    def _calculate_actual_results(self, have_improved):
         """
 
         Returns
@@ -144,12 +144,12 @@ class DElo_ties_and_QI(DElo):
         
         # margin of victory
         out = (self.delta_f != 0).astype(np.float64)
-        actual_relative_difference = np.true_divide(self.delta_f, np.abs(self.population_f_value), out=out, where=self.population_f_value!=0)
+        actual_relative_difference = np.true_divide(self.delta_f, np.abs(self._population_f_value), out=out, where=self._population_f_value != 0)
         actual_relative_difference[actual_relative_difference > 1] = 1
         return {'victory':loss_tie_win, 
                 'relative_difference': actual_relative_difference}
         
-    def update_elo_ratings(self, expected_results, actual_results):
+    def _update_elo_ratings(self, expected_results, actual_results):
         update = self.player_elo_rating_rate * (actual_results['victory'] - expected_results['victory']) + \
                  self.player_elo_rating_rate_MOV * (actual_results['relative_difference'] - expected_results['relative_difference'])
 
@@ -157,13 +157,13 @@ class DElo_ties_and_QI(DElo):
         # its rating from the beginning of the generation is taken into calculations
         player_update = np.zeros(self.players.number_of_players)
         for i in range(self.population_size):  # len(self.indexes_of_selected_players) == self.population_size
-            player_update[self.indexes_of_selected_players[i]] += update[i]
+            player_update[self._indices_of_selected_players[i]] += update[i]
         self.players.rating += player_update  # it is 0 for unselected players
 
         task_updates = self.task_elo_rating_rate * (expected_results['victory'] - actual_results['victory']) + \
                        self.task_elo_rating_rate_MOV * (expected_results['relative_difference'] - actual_results['relative_difference'])
-        self.task_ratings += task_updates
+        self._task_ratings += task_updates
 
-        self.logger.joint_elo_ratings(expected_results['victory'], actual_results['victory'], 
-                                 expected_results['relative_difference'], actual_results['relative_difference'], 
-                                 player_update, self.players.rating, task_updates, self.task_ratings)
+        self.logger.joint_elo_ratings(expected_results['victory'], actual_results['victory'],
+                                      expected_results['relative_difference'], actual_results['relative_difference'],
+                                      player_update, self.players.rating, task_updates, self._task_ratings)

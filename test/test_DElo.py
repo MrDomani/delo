@@ -25,7 +25,7 @@ class TestInitialisation(unittest.TestCase):
         self.assertEqual(self.delo.players.F.size, 100)
         self.assertEqual(self.delo.players.rating.size, 100)
         desired = np.array([[0,1,2,3], [0,0,1,1], [0,1,0,1], [0,0,0,0]])
-        self.delo.initialize_players(4)
+        self.delo._initialize_players(4)
         np.testing.assert_equal(self.delo.players.to_numpy(), desired)
 
 class TestMutationMethods(unittest.TestCase):
@@ -42,24 +42,24 @@ class TestMutationMethods(unittest.TestCase):
     def test_draw_M_CR_and_M_F(self):
         self.delo.players.rating = np.zeros(self.delo.players.rating.shape)
         self.delo.portion_of_top_players = 0.2
-        CRs, Fs = self.delo.draw_M_CR_and_M_F()
+        CRs, Fs = self.delo._draw_M_CR_and_M_F()
         centralized_CRs = CRs - CRs.mean()
         centralized_Fs = Fs - Fs.mean()
         self.assertTrue(np.any(centralized_CRs != np.zeros(centralized_CRs.shape)))
         self.assertTrue(np.any(centralized_Fs != np.zeros(centralized_Fs.shape)))
 
     def test_update_selected_players(self):
-        self.delo.F = np.array([0.1, 0.3, 0.6, 0.9, 0.4])
-        self.delo.CR = np.array([0.1, 0.3, 0.6, 0.9, 0.1])
-        self.delo.update_selected_players()
+        self.delo._F = np.array([0.1, 0.3, 0.6, 0.9, 0.4])
+        self.delo._CR = np.array([0.1, 0.3, 0.6, 0.9, 0.1])
+        self.delo._update_selected_players()
         desired = np.array([0,6,12,24,2])
-        self.assertEqual(self.delo.indexes_of_selected_players.size, 5)
-        np.testing.assert_equal(self.delo.indexes_of_selected_players, desired)
+        self.assertEqual(self.delo._indices_of_selected_players.size, 5)
+        np.testing.assert_equal(self.delo._indices_of_selected_players, desired)
 
     def test_generate_M_CR_and_M_F(self):
         self.delo.players.rating[self.delo.players.CR == 0] = 100
         self.delo.portion_of_top_players = 0.2
-        CRs, Fs = self.delo.draw_M_CR_and_M_F()
+        CRs, Fs = self.delo._draw_M_CR_and_M_F()
         np.testing.assert_equal(CRs, np.zeros(5))
 
 class TestSelectionMethods(unittest.TestCase):
@@ -72,26 +72,26 @@ class TestSelectionMethods(unittest.TestCase):
         self.delo = DElo(population_size=5, players_amount=25, player_elo_rating_rate=1, task_elo_rating_rate=1)
         # Initialize, but don't run loop
         self.delo.optimize(described_function, max_f_evals=-1, rng_seed=2021)
-        self.delo.task_ratings = np.array([-3.0, -3.0, 0.0, 1.0, 2.0])
-        self.delo.prepare_for_generation_processing()
-        self.delo.mutate()
-        self.delo.crossover()
-        self.delo.evaluate()
-        f_difference = self.delo.population_f_value - self.delo.population_trial_f_value
+        self.delo._task_ratings = np.array([-3.0, -3.0, 0.0, 1.0, 2.0])
+        self.delo._prepare_for_generation_processing()
+        self.delo._mutate()
+        self.delo._crossover()
+        self.delo._evaluate()
+        f_difference = self.delo._population_f_value - self.delo._population_trial_f_value
         self.delo.indices_for_swap = (f_difference >= 0)
 
     def test_calculate_expected_results(self):
-        success_odds = self.delo.calculate_expected_results()
-        np.testing.assert_equal(success_odds, expit(-self.delo.task_ratings))
+        success_odds = self.delo._calculate_expected_results()
+        np.testing.assert_equal(success_odds, expit(-self.delo._task_ratings))
 
     def test_update_ratings(self):
-        old_task_ratings = copy(self.delo.task_ratings)
-        expected_results = expit(-self.delo.task_ratings)  # players' rating is all 0
+        old_task_ratings = copy(self.delo._task_ratings)
+        expected_results = expit(-self.delo._task_ratings)  # players' rating is all 0
         actual_results = np.zeros(5)
         # W tym wypadku (ratingi równe 0) to nie ma znaczenia
-        self.delo.indexes_of_selected_players = np.array([0, 0, 0, 1, 2])
-        self.delo.update_elo_ratings(expected_results, actual_results)
-        np.testing.assert_allclose(self.delo.task_ratings - old_task_ratings, expected_results, atol=1e-14)
+        self.delo._indices_of_selected_players = np.array([0, 0, 0, 1, 2])
+        self.delo._update_elo_ratings(expected_results, actual_results)
+        np.testing.assert_allclose(self.delo._task_ratings - old_task_ratings, expected_results, atol=1e-14)
         desired_updates = np.zeros(25)
         desired_updates[0] = -expit(-old_task_ratings[0]) - expit(-old_task_ratings[1]) - expit(-old_task_ratings[2])
         desired_updates[1] = -expit(-old_task_ratings[3])
@@ -118,9 +118,9 @@ class TestOther(unittest.TestCase):
 
         np.testing.assert_allclose(self.delo_1.get_solution()[0], self.delo_2.get_solution()[0], atol=1e-14)
         self.assertEqual(self.delo_1.get_solution()[1], self.delo_2.get_solution()[1])
-        np.testing.assert_allclose(self.delo_1.population, self.delo_2.population, atol=1e-14)
+        np.testing.assert_allclose(self.delo_1._population, self.delo_2._population, atol=1e-14)
         np.testing.assert_allclose(self.delo_1.players.to_numpy(), self.delo_2.players.to_numpy(), atol=1e-14)
-        np.testing.assert_allclose(self.delo_1.task_ratings, self.delo_2.task_ratings)
+        np.testing.assert_allclose(self.delo_1._task_ratings, self.delo_2._task_ratings)
 
 
 if __name__ == '__main__':

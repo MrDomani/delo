@@ -46,41 +46,41 @@ class SHADE(AbstractDE):
 
         self.logger.SHADE_init(self.history_size, self.initial_M_CR, self.initial_M_F)
 
-    def reset_CR_and_F(self):
+    def _reset_CR_and_F(self):
         self.k = -1 # index for memory of CR and F; It will start at 0, because it is increased in the beginning of generation() function
         self.M_CR = np.ones(self.history_size) * self.initial_M_CR
         self.M_F = np.ones(self.history_size) * self.initial_M_F
         self.CR = np.zeros(self.population_size)
         self.F = np.zeros(self.population_size)
 
-    def prepare_for_generation_processing(self):
-        super().prepare_for_generation_processing()
+    def _prepare_for_generation_processing(self):
+        super()._prepare_for_generation_processing()
         self.k += 1  # index for memory of CR and F
         if self.k == self.history_size: self.k = 0
 
-    def draw_M_CR_and_M_F(self):
+    def _draw_M_CR_and_M_F(self):
         r = self.rng.choice(self.history_size, size=self.population_size, replace=True)
         return self.M_CR[r], self.M_F[r]
 
-    def selection(self):
-        have_improved = self.set_delta_f_and_get_improvement_bool()
+    def _selection(self):
+        have_improved = self._set_delta_f_and_get_improvement_bool()
         if sum(have_improved) == 0:
             self.logger.unsuccessful_generation()
             if isinstance(self.logger, FakeLogger):  # if we do log, we want to have logs of the proper size
                 return  # this generation was unsuccessful
 
-        self.process_evaluation_results(have_improved)
-        self.replace_with_improved_members(have_improved)
+        self._process_evaluation_results(have_improved)
+        self._replace_with_improved_members(have_improved)
 
-    def process_evaluation_results(self, have_improved):
-        super().process_evaluation_results(have_improved)
-        self.update_M_CR_and_M_F()
+    def _process_evaluation_results(self, have_improved):
+        super()._process_evaluation_results(have_improved)
+        self._update_M_CR_and_M_F()
 
-    def update_M_CR_and_M_F(self):
-        S = sum(self.delta_f)
+    def _update_M_CR_and_M_F(self):
+        S = sum(self._delta_f)
 
         if S > 0:  # S > 0 iff the set of S_{CF} is non-empty
-            w = self.delta_f / S  # S is always non-negative, so here S is positive
+            w = self._delta_f / S  # S is always non-negative, so here S is positive
             self.M_CR[self.k] = sum(w * self.CR)
             self.M_F[self.k] = sum((w * (self.F ** 2))) / sum((w * self.F))
 
@@ -88,7 +88,7 @@ class SHADE(AbstractDE):
 
         self.logger.updated_CR_F(self.M_CR, self.M_F)
 
-    def check_restart_condition(self):
+    def _check_restart_condition(self):
         """
         Restart will occur in one of two cases:
         1) If relative distance between members is too small
@@ -105,10 +105,10 @@ class SHADE(AbstractDE):
         cond_restart = False
 
         # RelMax
-        if np.min(self.population.max(axis=0) - self.population.min(axis=0)) <= \
-                self.restart_eps_x * np.abs(self.population).max():
-            self.logger.restarting_cond_x(np.min(self.population.max(axis=0) - self.population.min(axis=0)),
-                                          np.abs(self.population).max(),
+        if np.min(self._population.max(axis=0) - self._population.min(axis=0)) <= \
+                self.restart_eps_x * np.abs(self._population).max():
+            self.logger.restarting_cond_x(np.min(self._population.max(axis=0) - self._population.min(axis=0)),
+                                          np.abs(self._population).max(),
                                           self.restart_eps_x, abs=True)
             cond_restart = True
 
