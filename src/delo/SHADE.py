@@ -50,8 +50,8 @@ class SHADE(AbstractDE):
         self.k = -1 # index for memory of CR and F; It will start at 0, because it is increased in the beginning of generation() function
         self.M_CR = np.ones(self.history_size) * self.initial_M_CR
         self.M_F = np.ones(self.history_size) * self.initial_M_F
-        self.CR = np.zeros(self.population_size)
-        self.F = np.zeros(self.population_size)
+        self._CR = np.zeros(self.population_size)
+        self._F = np.zeros(self.population_size)
 
     def _prepare_for_generation_processing(self):
         super()._prepare_for_generation_processing()
@@ -81,10 +81,10 @@ class SHADE(AbstractDE):
 
         if S > 0:  # S > 0 iff the set of S_{CF} is non-empty
             w = self._delta_f / S  # S is always non-negative, so here S is positive
-            self.M_CR[self.k] = sum(w * self.CR)
-            self.M_F[self.k] = sum((w * (self.F ** 2))) / sum((w * self.F))
+            self.M_CR[self.k] = sum(w * self._CR)
+            self.M_F[self.k] = sum((w * (self._F ** 2))) / sum((w * self._F))
 
-            self.logger.new_CR_F(w, self.CR[w > 0], self.M_CR[self.k], self.F[w > 0], self.M_F[self.k])
+            self.logger.new_CR_F(w, self._CR[w > 0], self.M_CR[self.k], self._F[w > 0], self.M_F[self.k])
 
         self.logger.updated_CR_F(self.M_CR, self.M_F)
 
