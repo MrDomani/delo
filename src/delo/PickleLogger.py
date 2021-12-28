@@ -52,14 +52,19 @@ class PickleLogger(Logger):
 
 
 class PickleLogReader(LogReader):
+    def __init__(self, file):
+        super().__init__(file=file)
+        dir_name = os.path.dirname(file)
+        self.log_root_name = dir_name
     def process_line(self, line, type_name):
         splitted = line.split(' ; ')
         if len(splitted) != 4:
             raise Exception('Line not processed')
         variable_name = splitted[2]
         raw_value = splitted[3]
-        if type_name == 'np.array' and os.path.isfile(raw_value[:-1]):
-            with np.load(raw_value[:-1]) as data:
+        file_name_candidate = os.path.join(self.log_root_name, raw_value[:-1])
+        if type_name == 'np.array' and os.path.isfile(file_name_candidate):
+            with np.load(file_name_candidate) as data:
                 parsed_value = data[variable_name]
         else:
             parsed_value = self.parse_value(raw_value, type_name)
