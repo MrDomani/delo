@@ -91,7 +91,6 @@ class TestAbstractDERestarts(TestAbstractDESetUp):
     def test_after_optimization(self):
         self.solver.optimize(self.described_function,
                              max_f_evals=-1, rng_seed=self.seed)  # should initialize, but not perform any generation
-        # TODO()
 
         self.solver.optimize(self.described_function, max_f_evals=1003, rng_seed=self.seed)
         np.testing.assert_array_equal(self.restrigin5D(self.solver._population),

@@ -14,8 +14,6 @@ class DElo_ties(DElo):
         """
         Modification of DElo algorithm with additional ties as a result of the game. Normal DElo is a special case of
         this version with win_tie=0 and win_loss=0.
-
-        # TODO(history_for_ties=20, win_tie=0.02, tie_loss=0.1)
         """
         super().__init__(population_size=population_size,
                          p_best_rate=p_best_rate,
