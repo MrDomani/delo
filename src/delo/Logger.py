@@ -418,7 +418,7 @@ class Logger:
 
 class LogReader:
     """
-    Read log created with `Logger`.
+    Read log created with *Logger*.
 
     Example
     --------
@@ -444,7 +444,7 @@ class LogReader:
         Parameters
         ----------
         file : str
-            path to *.log file created with `LogReader`.
+            path to *.log file created with *LogReader*.
         """
         self.file = file
         self._variable_types = {'info': 'str',
@@ -569,7 +569,7 @@ class LogReader:
         Parameters
         ----------
         variable_name : str
-            name of variable to be read from log. Run `get_variable_names` for acceptable values.
+            name of variable to be read from log. Run *get_variable_names* for acceptable values.
         type_name : str, optional
             type of variable to be read. If not provided, default variable type will be used.
             Acceptable types: "str", "int", "float", "bool", "list", "np.array".

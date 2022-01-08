@@ -53,7 +53,7 @@ class PickleLogger(Logger):
 
 class PickleLogReader(LogReader):
     """
-    Read logs created with `PickleLogger`.
+    Read logs created with *PickleLogger*.
 
     Notes
     -----
@@ -83,7 +83,7 @@ class PickleLogReader(LogReader):
         Parameters
         ----------
         file : str
-            path to *.log file created with `LogReader`.
+            path to *.log file created with *LogReader*.
 
         """
         super().__init__(file=file)
