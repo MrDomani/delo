@@ -124,10 +124,10 @@ class AbstractDE(ABC):
             function to be optimized with attributes, created with DescribedFunction.
         print_every : int, optional
             Info about verbosity. Every `print_every` generation information about state of optimization
-        will be printed on console.
+            will be printed on console.
         restarts_handled_externally: bool.
             If True and restarting conditions are met, the algorithm ends. If False
-        and restarting conditions are met, the algorithm restarts.
+            and restarting conditions are met, the algorithm restarts.
         rng_seed : int, optional
             seed to be used in pseudorandom number generation. Same seed leads to same outcomes.
 
@@ -135,17 +135,6 @@ class AbstractDE(ABC):
         -------
         Tuple
             `solution` (member with lowest f-value), `best_f_value`.
-
-        Examples
-        --------
-        Optimize quadratic function in 2D
-        >>> def square(x):
-        ...     return x ** 2
-        >>> described_function = delo.DescribedFunction(square, dimension=2, domain_lower_limit=-10, domain_upper_limit=10)
-        >>> algorithm = delo.DElo(100)
-        >>> solution, best_f_value = algorithm.optimize(described_function)
-        >>> print(solution, best_f_value)
-        0.0, 0.0
         """
         self._prepare_optimization(described_function, max_f_evals, print_every, rng_seed)
 
