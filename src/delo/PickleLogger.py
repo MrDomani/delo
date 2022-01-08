@@ -55,7 +55,7 @@ class PickleLogReader(LogReader):
     """
     Read logs created with ``PickleLogger``.
 
-    Notes
+    Warnings
     -----
     Log consists of 1) a \*.log file and 2) \*_objects folder with many gen\*.npy files.
     Log as a whole can be moved and accessed with PickleLogReader from any folder, but log's inner structure must be preserved.
