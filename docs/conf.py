@@ -57,3 +57,5 @@ html_theme = 'alabaster'
 autosummary_generate = True
 autosummary_generate_overwrite = True
 autosummary_ignore_module_all = False
+
+pygments_style = 'sphinx'

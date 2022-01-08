@@ -25,6 +25,20 @@ Clone repo and run from root:
 
     `pip install .`
 
+Example
+-------
+.. code-block:: python
+   :linenos:
+
+   from delo import DElo, DescribedFunction
+   import numpy as np
+
+   def square(x):
+       return np.sum(x ** 2, axis=1)
+   described_function = DescribedFunction(square, dimension=2, domain_lower_limit=-10, domain_upper_limit=10)
+   algorithm = DElo(10)
+   algorithm.optimize(described_function, rng_seed=2022)
+
 Contribute
 ----------
 
