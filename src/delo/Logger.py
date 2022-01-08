@@ -25,6 +25,7 @@ class FakeLogger:
     def log(self, name, info, array):
         pass
 
+
     # AbstractDE
     def AbstractDE_init(self, restart_eps_x, restart_eps_y, use_archive,
                                         archive_size, population_size, p_best_rate,
@@ -101,6 +102,7 @@ class FakeLogger:
     def restarting(self, generations_after_last_restart, current_best_f):
         pass
 
+
     # SHADE
     def SHADE_init(self, H, initial_M_CR, initial_M_F):
         pass
@@ -119,6 +121,7 @@ class FakeLogger:
 
     def attempts_of_back_to_domain(self, attempts):
         pass
+
 
     # DElo
     def DElo_init(self, portion_of_top_players, player_elo_rating_rate,
@@ -151,11 +154,12 @@ class FakeLogger:
         pass
     
     
-    # DElo_ties
+    # DElo_Ties
     def DElo_ties_init(self, history_for_ties, win_tie, tie_loss):
         pass
 
-    # DElo joint
+
+    # DElo_TQI
     def joint_init(self, *args):
         pass
 
@@ -202,8 +206,8 @@ class Logger:
         self.pythonLoggerAdapter = logging.LoggerAdapter(self.pythonLogger, extra)
         self.pythonLoggerAdapter.debug(info, extra)
 
-    # AbstractDE
 
+    # AbstractDE
     def AbstractDE_init(self, restart_eps_x, restart_eps_y, use_archive,
                         archive_size, population_size, p_best_rate,
                         variation_for_CR, scale_for_F):
@@ -319,8 +323,8 @@ class Logger:
     def attempts_of_back_to_domain(self, attempts):
         self.log('attempts_of_back_to_domain', attempts)
 
-    # SHADE
 
+    # SHADE
     def SHADE_init(self, H, initial_M_CR, initial_M_F):
         self.log('info', 'SHADE')
         self.log('history_size', H)
@@ -348,8 +352,8 @@ class Logger:
         self.log('updated_M_CR', M_CR, array=True)
         self.log('updated_M_F', M_F, array=True)
 
-    # DElo
 
+    # DElo
     def DElo_init(self, portion_of_top_players, player_elo_rating_rate,
                   task_elo_rating_rate, number_of_players):
         self.log("info", self.optimizer_name)
@@ -377,15 +381,16 @@ class Logger:
 
     def indices_of_selected_players(self, indices_of_selected_players):
         self.log('indices_of_selected_players', indices_of_selected_players, array=True)
-    
+
+
     # DElo_ties
     def DElo_ties_init(self, history_for_ties, win_tie, tie_loss):
         self.log("history_for_ties_size", history_for_ties)
         self.log("win_tie_boundary", win_tie)
         self.log("tie_loss_boundary", tie_loss)
 
-    # DElo_ties_and_QI
 
+    # DElo_TQI
     def joint_init(self, history_for_ties, win_tie, tie_loss, expectation_factor, player_elo_rating_rate_MOV, task_elo_rating_rate_MOV): 
         self.log("history_for_ties_size", history_for_ties)
         self.log("win_tie_boundary", win_tie)
