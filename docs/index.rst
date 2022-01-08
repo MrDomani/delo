@@ -37,7 +37,7 @@ Example
        return np.sum(x ** 2, axis=1)
    described_function = DescribedFunction(square, dimension=2, domain_lower_limit=-10, domain_upper_limit=10)
    algorithm = DElo(10)
-   algorithm.optimize(described_function, rng_seed=2022)
+   algorithm.optimize(described_function)
 
 Contribute
 ----------
