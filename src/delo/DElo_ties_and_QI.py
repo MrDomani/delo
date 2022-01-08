@@ -19,6 +19,17 @@ class DElo_ties_and_QI(DElo):
 
     Elo ratings, apart from predicting victory odds, are used to predict relative function difference.
     The prediction function is (rating_difference * `expectation_factor`).
+
+    Example
+    --------
+    Optimize quadratic function in 2D
+    >>> def square(x):
+    ...     return x ** 2
+    >>> described_function = delo.DescribedFunction(square, dimension=2, domain_lower_limit=-10, domain_upper_limit=10)
+    >>> algorithm = delo.DElo_ties_and_QI(100)
+    >>> solution, best_f_value = algorithm.optimize(described_function)
+    >>> print(solution, best_f_value)
+    0.0, 0.0
     """
     def __init__(self, population_size, p_best_rate=0.2, use_archive=True, archive_size=50,
                  portion_of_top_players=0.2, players_amount=100,

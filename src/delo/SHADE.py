@@ -9,6 +9,17 @@ class SHADE(AbstractDE):
     Optimization algorithm from Differential Evolution family. F and CR parameters are adjusted through optimizing
     using sucess history. Utilized mutation strategy: p-best. Succesful members from past will be stored in archive.
     Restart condition: minimum relative dispersion across dimension.
+
+    Example
+    --------
+    Optimize quadratic function in 2D
+    >>> def square(x):
+    ...     return x ** 2
+    >>> described_function = delo.DescribedFunction(square, dimension=2, domain_lower_limit=-10, domain_upper_limit=10)
+    >>> algorithm = delo.SHADE(100)
+    >>> solution, best_f_value = algorithm.optimize(described_function)
+    >>> print(solution, best_f_value)
+    0.0, 0.0
     """
     def __init__(self, population_size, p_best_rate=0.2, use_archive=True, archive_size=50,
                  history_size=100, restart_eps_x=None, restart_eps_y=None,
