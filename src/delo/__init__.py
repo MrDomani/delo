@@ -1,13 +1,11 @@
 """
-DElo
-
-Some more exact documantation about DElo package
+DElo Python package
 """
 
 from .DElo import DElo
 from .SHADE import SHADE
 from .DescribedFunction import DescribedFunction
-from .Logger import *
+from .Logger import Logger, LogReader
 from .PickleLogger import *
 from .DElo_ties import DElo_ties
 from .DElo_ties_and_QI import DElo_ties_and_QI
