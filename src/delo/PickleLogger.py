@@ -53,11 +53,11 @@ class PickleLogger(Logger):
 
 class PickleLogReader(LogReader):
     """
-    Read logs created with *PickleLogger*.
+    Read logs created with ``PickleLogger``.
 
     Notes
     -----
-    Log consists of 1) a *.log file and 2) *_objects folder with many gen*.npy files.
+    Log consists of 1) a \*.log file and 2) \*_objects folder with many gen\*.npy files.
     Log as a whole can be moved and accessed with PickleLogReader from any folder, but log's inner structure must be preserved.
 
     Example
@@ -83,7 +83,7 @@ class PickleLogReader(LogReader):
         Parameters
         ----------
         file : str
-            path to *.log file created with *LogReader*.
+            path to \*.log file created with ``LogReader``.
 
         """
         super().__init__(file=file)
