@@ -31,7 +31,7 @@ class DescribedFunction:
     """
     def __init__(self, function, dimension, domain_lower_limit=None, domain_upper_limit=None, name=None):
         """
-        Function with attributes
+        Constructor
 
         Parameters
         ----------

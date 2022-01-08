@@ -13,9 +13,7 @@ class AbstractDE(ABC):
     """
     def __init__(self, population_size, p_best_rate=0.2, use_archive=True, archive_size=50,
                  restart_eps_x=None, restart_eps_y=None, variation_for_CR=0.1, scale_for_F=0.1, logger=None, **logger_kwargs):
-        """Abstact class for SHADE and DElo
-
-        Initialise the algorithm, but not run in yet (see `optimize`).
+        """Initialise the algorithm, but not run in yet (see `optimize`).
 
         Parameters
         ----------

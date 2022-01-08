@@ -28,8 +28,6 @@ class DElo_ties_and_QI(DElo):
                  variation_for_CR=0.1, scale_for_F=0.1,
                  logger=None, **logger_kwargs):
         """
-        Differential Evolution with Elo ranking system
-
         Initialise the algorithm, but not run in yet (see `optimize`).
 
         Parameters
