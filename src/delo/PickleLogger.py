@@ -59,13 +59,43 @@ class PickleLogReader(LogReader):
     -----
     Log consists of 1) a *.log file and 2) *_objects folder with many gen*.npy files.
     Log as a whole can be moved and accessed with PickleLogReader from any folder, but log's inner structure must be preserved.
+
+    Example
+    --------
+    >>> def square(x):
+    ...     return x ** 2
+    >>> file_name = 'square_opt.log'
+    >>> logger = PickleLogger(file=file_name)
+    >>> described_function = delo.DescribedFunction(square, dimension=2, domain_lower_limit=-10, domain_upper_limit=10)
+    >>> algorithm = delo.DElo(10, logger=logger)
+    >>> algorithm.optimize(described_function, rng_seed=2022)
+    >>> logreader = PickleLogReader(file_name)
+    >>> best_fs = logreader.read_variable('current_best_f')
+    Looking for current_best_f in log file
+    Found 100 occurences of `current_best_f`.
+    >>> print(best_fs[:5])
+    [27.935020304146946, 13.606498015936902, 4.37874090480261, 2.9852266609374456, 0.29795569609533]
     """
     def __init__(self, file):
+        """
+        Constructor
+
+        Parameters
+        ----------
+        file : str
+            path to *.log file created with `LogReader`.
+
+        """
         super().__init__(file=file)
         dir_name = os.path.dirname(file)
         self.log_root_name = dir_name
 
-    def process_line(self, line, type_name):
+    def _process_line(self, line, type_name):
+
+        # Structure of lines in file:
+        # DEBUG ; 2021-11-14 20:52:34,979 ; restart_eps_x ; None
+        # Loglevel ; time ; name ; value
+
         splitted = line.split(' ; ')
         if len(splitted) != 4:
             raise Exception('Line not processed')
@@ -76,7 +106,7 @@ class PickleLogReader(LogReader):
             with np.load(file_name_candidate) as data:
                 parsed_value = data[variable_name]
         else:
-            parsed_value = self.parse_value(raw_value, type_name)
+            parsed_value = self._parse_value(raw_value, type_name)
         return {'levelname': splitted[0],
                 'asctime': time.strptime(splitted[1], "%Y-%m-%d %H:%M:%S,%f"),
                 'variable_name': variable_name,

@@ -6,7 +6,6 @@ import ast
 from sys import maxsize
 import warnings
 
-
 np.set_printoptions(suppress=True,  # no scientific notation
                     threshold=maxsize,  # logging the whole np.arrays
                     linewidth=np.inf)  # one line for vectors
@@ -14,6 +13,7 @@ np.set_printoptions(suppress=True,  # no scientific notation
 
 def myarray2string(array):
     return np.array2string(array, separator=', ').replace('\n', '')
+
 
 class FakeLogger:
     def __init__(self):
@@ -25,11 +25,10 @@ class FakeLogger:
     def log(self, name, info, array):
         pass
 
-
     # AbstractDE
     def AbstractDE_init(self, restart_eps_x, restart_eps_y, use_archive,
-                                        archive_size, population_size, p_best_rate,
-                                        variation_for_CR, scale_for_F):
+                        archive_size, population_size, p_best_rate,
+                        variation_for_CR, scale_for_F):
         pass
 
     def start_optimization(self, rng_seed):
@@ -83,7 +82,7 @@ class FakeLogger:
 
     def remove_from_archive(self, r):
         pass
-        
+
     def restarting_cond_x(self, numerator, denominator, restart_eps_x, abs=False):
         pass
 
@@ -92,7 +91,7 @@ class FakeLogger:
 
     def restarting_cond(self, type, numerator, denominator, restart_eps, abs=False):
         pass
-        
+
     def restarting_x(self, numerator, denominator, restart_eps_x):
         pass
 
@@ -101,7 +100,6 @@ class FakeLogger:
 
     def restarting(self, generations_after_last_restart, current_best_f):
         pass
-
 
     # SHADE
     def SHADE_init(self, H, initial_M_CR, initial_M_F):
@@ -122,7 +120,6 @@ class FakeLogger:
     def attempts_of_back_to_domain(self, attempts):
         pass
 
-
     # DElo
     def DElo_init(self, portion_of_top_players, player_elo_rating_rate,
                   task_elo_rating_rate, number_of_players):
@@ -132,7 +129,7 @@ class FakeLogger:
         pass
 
     def elo_ratings(self, expected_results, actual_results, player_update,
-                     players_rating, task_updates, task_ratings):
+                    players_rating, task_updates, task_ratings):
         pass
 
     def top_players(self, top_players_indexes, top_players_indexes_r):
@@ -152,12 +149,10 @@ class FakeLogger:
 
     def turn_off(self):
         pass
-    
-    
+
     # DElo_Ties
     def DElo_ties_init(self, history_for_ties, win_tie, tie_loss):
         pass
-
 
     # DElo_TQI
     def joint_init(self, *args):
@@ -188,7 +183,7 @@ class Logger:
                                 'updated_M_CR', 'updated_M_F', 'expected_results', 'actual_results', 'player_updates',
                                 'player_ratings', 'task_updates', 'task_ratings', 'top_players_indices',
                                 'indices_of_drawn_players_to_optimize', 'indices_of_selected_players']
-        self.optimizer_name=optimizer_name
+        self.optimizer_name = optimizer_name
 
     def log_multiple(self, **kwargs):
         for name, info in kwargs.items():
@@ -205,7 +200,6 @@ class Logger:
         extra = {'logname': name}
         self.pythonLoggerAdapter = logging.LoggerAdapter(self.pythonLogger, extra)
         self.pythonLoggerAdapter.debug(info, extra)
-
 
     # AbstractDE
     def AbstractDE_init(self, restart_eps_x, restart_eps_y, use_archive,
@@ -323,7 +317,6 @@ class Logger:
     def attempts_of_back_to_domain(self, attempts):
         self.log('attempts_of_back_to_domain', attempts)
 
-
     # SHADE
     def SHADE_init(self, H, initial_M_CR, initial_M_F):
         self.log('info', 'SHADE')
@@ -351,7 +344,6 @@ class Logger:
     def updated_CR_F(self, M_CR, M_F):
         self.log('updated_M_CR', M_CR, array=True)
         self.log('updated_M_F', M_F, array=True)
-
 
     # DElo
     def DElo_init(self, portion_of_top_players, player_elo_rating_rate,
@@ -382,16 +374,15 @@ class Logger:
     def indices_of_selected_players(self, indices_of_selected_players):
         self.log('indices_of_selected_players', indices_of_selected_players, array=True)
 
-
     # DElo_ties
     def DElo_ties_init(self, history_for_ties, win_tie, tie_loss):
         self.log("history_for_ties_size", history_for_ties)
         self.log("win_tie_boundary", win_tie)
         self.log("tie_loss_boundary", tie_loss)
 
-
     # DElo_TQI
-    def joint_init(self, history_for_ties, win_tie, tie_loss, expectation_factor, player_elo_rating_rate_MOV, task_elo_rating_rate_MOV): 
+    def joint_init(self, history_for_ties, win_tie, tie_loss, expectation_factor, player_elo_rating_rate_MOV,
+                   task_elo_rating_rate_MOV):
         self.log("history_for_ties_size", history_for_ties)
         self.log("win_tie_boundary", win_tie)
         self.log("tie_loss_boundary", tie_loss)
@@ -399,8 +390,8 @@ class Logger:
         self.log('player_elo_rating_rate_MOV', player_elo_rating_rate_MOV, False)
         self.log('task_elo_rating_rate_MOV', task_elo_rating_rate_MOV, False)
 
-    def joint_elo_ratings(self, victory_odds, were_victorious, expected_relative_difference, actual_relative_difference, 
-        player_updates,player_ratings, task_updates, task_ratings):
+    def joint_elo_ratings(self, victory_odds, were_victorious, expected_relative_difference, actual_relative_difference,
+                          player_updates, player_ratings, task_updates, task_ratings):
         self.log('victory_odds', victory_odds, array=True)
         self.log('were_victorious', were_victorious, array=True)
         self.log('expected_relative_difference', expected_relative_difference, array=True)
@@ -408,7 +399,7 @@ class Logger:
         self.log('player_updates', player_updates, array=True)
         self.log('player_ratings', player_ratings, array=True)
         self.log('task_updates', task_updates, array=True)
-        self.log('task_ratings', task_ratings, array=True)  
+        self.log('task_ratings', task_ratings, array=True)
 
     def log_error(self, name, info):
         extra = {'logname': name}
@@ -426,98 +417,139 @@ class Logger:
 
 
 class LogReader:
-    def __init__(self, file):
-        self.file = file
-        """
-        Struktura linii w pliku:
-        DEBUG ; 2021-11-14 20:52:34,979 ; restart_eps_x ; None
-        Komunikat ; Czas ; nazwa ; wartość
-        """
-        self.variable_types = {'info': 'str',
-                               'restart_eps_x': 'float',
-                               'restart_eps_y': 'float',
-                               'rng_seed': 'int',
-                               'use_archive': 'bool',
-                               'archive_size': 'int',
-                               'population_size': 'int',
-                               'p_best_rate': 'float',
-                               'portion_of_top_players': 'float',
-                               'player_elo_rating_rate': 'float',
-                               'task_elo_rating_rate': 'float',
-                               'number of players': 'int',
-                               'max_f_evals': 'int',
-                               'dimension': 'int',
-                               'number_of_best': 'int',
-                               'archive': 'np.array',
-                               'population': 'np.array',
-                               'population_f_value': 'np.array',
-                               'scores_index_sorted': 'np.array',
-                               'current_worst_i': 'int',
-                               'current_worst_f': 'float',
-                               'current_p_best_i': 'int',
-                               'current_p_best_f': 'float',
-                               'current_best_i': 'int',
-                               'current_best_f': 'float',
-                               'best_member_ever': 'np.array',
-                               'best_f_value_ever': 'float',
-                               'generations_done': 'int',
-                               'generations_after_last_restart': 'int',
-                               'top_players_indexes': 'np.array',
-                               'top_players_indices': 'np.array',
-                               'indexes of drawn players to optimize': 'np.array',
-                               'indices of drawn players to optimize': 'np.array',
-                               'drawn_M_CR': 'np.array',
-                               'drawn_M_F': 'np.array',
-                               'CR': 'np.array',
-                               'F': 'np.array',
-                               'p': 'np.array',
-                               'indexes_of_selected_players': 'np.array',
-                               'indices_of_selected_players': 'np.array',
-                               'indices_for_mutation': 'np.array',
-                               'random_members_for_mutation': 'np.array',
-                               'numbers_of_specimens_to_choose_from': 'np.array',
-                               'pbest_members_indices': 'np.array',
-                               'pbest_members_indexes': 'np.array',
-                               'x_pbest': 'np.array',
-                               'x_p_best': 'np.array',
-                               'population_trial': 'np.array',
-                               'swapped_population_trial': 'np.array',
-                               'swap': 'np.array',
-                               'f_difference': 'np.array',
-                               'delta_f': 'np.array',
-                               'indices_for_swap': 'np.array',
-                               'number of improvements this generation': 'int',
-                               'expected_results': 'np.array',
-                               'actual_results': 'np.array',
-                               'player_update': 'np.array',
-                               'player_updates': 'np.array',
-                               'players.rating': 'np.array',
-                               'player_ratings': 'np.array',
-                               'task_updates': 'np.array',
-                               'task_ratings': 'np.array',
-                               'where_use_archive': 'np.array',
-                               'remove_from_archive': 'np.array',
-                               'restarting': 'str',
-                               'x-restarting_value': 'float',
-                               'y-restarting_value': 'float',
-                               'victory_odds': 'np.array',
-                               'were_victorious': 'np.array',
-                               'expected_relative_difference': 'np.array',
-                               'actual_relative_difference': 'np.array',
-                               'history_for_ties_size': 'int',
-                               'win_tie_boundary': 'float',
-                               'tie_loss_boundary': 'float',
-                               'restarts': 'int',
-                               'variation_for_CR': 'float',
-                               'scale_for_F': 'float',
-                               'generations_after_last_restart_restarting': 'int',
-                               'best_f_after_last_restart_restarting': 'float',
-                               'value_of_found_solution': 'float',
-                               'generations_processed': 'int',
-                               'attempts_of_back_to_domain': 'int'}
+    """
+    Read log created with `Logger`.
 
+    Example
+    --------
+    >>> def square(x):
+    ...     return x ** 2
+    >>> file_name = 'square_opt.log'
+    >>> logger = Logger(file=file_name)
+    >>> described_function = delo.DescribedFunction(square, dimension=2, domain_lower_limit=-10, domain_upper_limit=10)
+    >>> algorithm = delo.DElo(10, logger=logger)
+    >>> algorithm.optimize(described_function, rng_seed=2022)
+    >>> logreader = LogReader(file_name)
+    >>> best_fs = logreader.read_variable('current_best_f')
+    Looking for current_best_f in log file
+    Found 100 occurences of `current_best_f`.
+    >>> print(best_fs[:5])
+    [27.935020304146946, 13.606498015936902, 4.37874090480261, 2.9852266609374456, 0.29795569609533]
+    """
+
+    def __init__(self, file):
+        """
+        Constructor
+
+        Parameters
+        ----------
+        file : str
+            path to *.log file created with `LogReader`.
+        """
+        self.file = file
+        self._variable_types = {'info': 'str',
+                                'restart_eps_x': 'float',
+                                'restart_eps_y': 'float',
+                                'rng_seed': 'int',
+                                'use_archive': 'bool',
+                                'archive_size': 'int',
+                                'population_size': 'int',
+                                'p_best_rate': 'float',
+                                'portion_of_top_players': 'float',
+                                'player_elo_rating_rate': 'float',
+                                'task_elo_rating_rate': 'float',
+                                'number of players': 'int',
+                                'max_f_evals': 'int',
+                                'dimension': 'int',
+                                'number_of_best': 'int',
+                                'archive': 'np.array',
+                                'population': 'np.array',
+                                'population_f_value': 'np.array',
+                                'scores_index_sorted': 'np.array',
+                                'current_worst_i': 'int',
+                                'current_worst_f': 'float',
+                                'current_p_best_i': 'int',
+                                'current_p_best_f': 'float',
+                                'current_best_i': 'int',
+                                'current_best_f': 'float',
+                                'best_member_ever': 'np.array',
+                                'best_f_value_ever': 'float',
+                                'generations_done': 'int',
+                                'generations_after_last_restart': 'int',
+                                'top_players_indexes': 'np.array',
+                                'top_players_indices': 'np.array',
+                                'indexes of drawn players to optimize': 'np.array',
+                                'indices of drawn players to optimize': 'np.array',
+                                'drawn_M_CR': 'np.array',
+                                'drawn_M_F': 'np.array',
+                                'CR': 'np.array',
+                                'F': 'np.array',
+                                'p': 'np.array',
+                                'indexes_of_selected_players': 'np.array',
+                                'indices_of_selected_players': 'np.array',
+                                'indices_for_mutation': 'np.array',
+                                'random_members_for_mutation': 'np.array',
+                                'numbers_of_specimens_to_choose_from': 'np.array',
+                                'pbest_members_indices': 'np.array',
+                                'pbest_members_indexes': 'np.array',
+                                'x_pbest': 'np.array',
+                                'x_p_best': 'np.array',
+                                'population_trial': 'np.array',
+                                'swapped_population_trial': 'np.array',
+                                'swap': 'np.array',
+                                'f_difference': 'np.array',
+                                'delta_f': 'np.array',
+                                'indices_for_swap': 'np.array',
+                                'number of improvements this generation': 'int',
+                                'expected_results': 'np.array',
+                                'actual_results': 'np.array',
+                                'player_update': 'np.array',
+                                'player_updates': 'np.array',
+                                'players.rating': 'np.array',
+                                'player_ratings': 'np.array',
+                                'task_updates': 'np.array',
+                                'task_ratings': 'np.array',
+                                'where_use_archive': 'np.array',
+                                'remove_from_archive': 'np.array',
+                                'restarting': 'str',
+                                'x-restarting_value': 'float',
+                                'y-restarting_value': 'float',
+                                'victory_odds': 'np.array',
+                                'were_victorious': 'np.array',
+                                'expected_relative_difference': 'np.array',
+                                'actual_relative_difference': 'np.array',
+                                'history_for_ties_size': 'int',
+                                'win_tie_boundary': 'float',
+                                'tie_loss_boundary': 'float',
+                                'restarts': 'int',
+                                'variation_for_CR': 'float',
+                                'scale_for_F': 'float',
+                                'generations_after_last_restart_restarting': 'int',
+                                'best_f_after_last_restart_restarting': 'float',
+                                'value_of_found_solution': 'float',
+                                'generations_processed': 'int',
+                                'attempts_of_back_to_domain': 'int'}
 
     def read_variables(self, variable_name_list, type_name_list=None, silence=False):
+        """
+        Get a list of multiple variables recorded in log.
+
+        Parameters
+        ----------
+        variable_name_list : list of str
+            names of variables to be read from log.
+        type_name_list : list of str, optional
+            types of variables to be read. If not provided, default variable types will be used.
+            Acceptable types: "str", "int", "float", "bool", "list", "np.array".
+        silence : bool
+            Whether print messages about progess (False) ot not (True).
+
+        Returns
+        -------
+        dict
+            keys: variable names, values: lists of variable values in consecutive iterations.
+        """
+
         outcome = dict()
         for i in range(len(variable_name_list)):
             try:
@@ -531,18 +563,42 @@ class LogReader:
         return outcome
 
     def read_variable(self, variable_name, type_name=None, silence=False):
+        """
+        Get a list of a single variable recorded in logs.
+
+        Parameters
+        ----------
+        variable_name : str
+            name of variable to be read from log. Run `get_variable_names` for acceptable values.
+        type_name : str, optional
+            type of variable to be read. If not provided, default variable type will be used.
+            Acceptable types: "str", "int", "float", "bool", "list", "np.array".
+        silence : bool
+            Whether print messages about progess (False) ot not (True).
+
+        Returns
+        -------
+        list
+            variable values in consecutive iterations.
+        """
+
         if not silence:
             print(f"Looking for {variable_name} in log file")
         if type_name is None:
-            if variable_name not in self.variable_types.keys():
+            if variable_name not in self._variable_types.keys():
                 raise Exception(f"`{variable_name}` has no type preset. Enter a type or edit LogReader class")
-            type_name = self.variable_types[variable_name]
+            type_name = self._variable_types[variable_name]
         else:
-            if variable_name in self.variable_types.keys():
+            if variable_name in self._variable_types.keys():
                 if type_name in ['np.ndarray', 'np.array', 'array']:
                     type_name = 'np.array'
-                if self.variable_types[variable_name] != type_name:
-                    warnings.warn(f"Supported `type_name` is {type_name}, but preset type_name is {self.variable_types[variable_name]}")
+                if self._variable_types[variable_name] != type_name:
+                    warnings.warn(
+                        f"Supported `type_name` is {type_name}, but preset type_name is {self._variable_types[variable_name]}")
+
+        # Structure of lines in file:
+        # DEBUG ; 2021-11-14 20:52:34,979 ; restart_eps_x ; None
+        # Loglevel ; time ; name ; value
 
         regex = "^.*\s;\s[0-9]{4}-[0-9]{2}-[0-9]{2}\s[0-9]{2}:[0-9]{2}:[0-9]{2},[0-9]{3}\s;\s" + variable_name + "\s;\s.*$"
         outcome = []
@@ -551,7 +607,7 @@ class LogReader:
                 if re.match(regex, line) is None:
                     continue
                 try:
-                    processed = self.process_line(line, type_name)
+                    processed = self._process_line(line, type_name)
                     outcome.append(processed['variable_value'])
                 except:
                     print(f"Error in parsing a value of `{variable_name}` to {type_name}. Proceeding further.")
@@ -561,6 +617,14 @@ class LogReader:
         return outcome
 
     def get_variable_names(self):
+        """
+        Get a list of names of variables recorded in logs.
+
+        Returns
+        -------
+        list of str
+            names of variables stored in logs.
+        """
         variable_names = []
         regex = "^.*\s;\s[0-9]{4}-[0-9]{2}-[0-9]{2}\s[0-9]{2}:[0-9]{2}:[0-9]{2},[0-9]{3}\s;\s.*\s;\s.*$"
         with open(self.file, 'r') as file:
@@ -575,16 +639,16 @@ class LogReader:
         print(f"Found {len(variable_names)} different variables.")
         return variable_names
 
-    def process_line(self, line, type_name):
+    def _process_line(self, line, type_name):
         splitted = line.split(' ; ')
         if len(splitted) != 4:
             raise Exception('Line not processed')
         return {'levelname': splitted[0],
                 'asctime': time.strptime(splitted[1], "%Y-%m-%d %H:%M:%S,%f"),
                 'variable_name': splitted[2],
-                'variable_value': self.parse_value(splitted[3], type_name)}
+                'variable_value': self._parse_value(splitted[3], type_name)}
 
-    def parse_value(self, value, type_name):
+    def _parse_value(self, value, type_name):
         value = value[:-1]  # last character is '\n'
         if value == 'None':
             return None
@@ -598,11 +662,15 @@ class LogReader:
             raise Exception('Format not supported')
 
     def read_solver_configuration(self):
+        """
+        Print on console initial parameters and hyperparameters.
+        """
         with open(self.file, 'r') as file:
             for line in file:
                 if re.search("info ; restart_search", line) is not None:  # this is end of configuration
                     break
                 print(line)
+
 
 class FakePrinter:  # fake printer will not print anything
     def __init__(self, print_every=100):
@@ -622,6 +690,7 @@ class FakePrinter:  # fake printer will not print anything
                             best_f_value_ever):
         pass
 
+
 class Printer:
     def __init__(self, print_every=100):
         self.print_every = int(print_every)
@@ -634,21 +703,21 @@ class Printer:
         if generations_done % self.print_every == 0:
             print("{generations_done}({generations_after_last_restart}). f(current_best) = {current_best_f:.4f}; "
                   "f(best_ever) = {best_f_value_ever:.4f}; improvements since last print = {number_of_improvements}".format(
-                    generations_done=generations_done,
-                    generations_after_last_restart=generations_after_last_restart,
-                    current_best_f=current_best_f,
-                    best_f_value_ever=best_f_value_ever,
-                    number_of_improvements=number_of_improvements))
+                generations_done=generations_done,
+                generations_after_last_restart=generations_after_last_restart,
+                current_best_f=current_best_f,
+                best_f_value_ever=best_f_value_ever,
+                number_of_improvements=number_of_improvements))
             return True
         return False
 
     def restarting(self, generations_after_last_restart, current_best_f):
         print("Restarting after {generations} generations since last restart;\n"
               "f(current_best) = {current_best_f:.4f}\n".format(
-                    generations=generations_after_last_restart, current_best_f=current_best_f))
+            generations=generations_after_last_restart, current_best_f=current_best_f))
 
     def optimizing_complete(self, restarts, generations_done, remaining_evals, generations_processed,
-                                best_f_value_ever):
+                            best_f_value_ever):
         print(f"\nOptimizing complete after {restarts} restarts, {generations_done} generations and"
               f"with {remaining_evals} remaining evaluations")
         print("{}. f(best_ever) = {best_f_value_ever:.4f}".format(
