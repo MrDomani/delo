@@ -52,10 +52,19 @@ class PickleLogger(Logger):
 
 
 class PickleLogReader(LogReader):
+    """
+    Read logs created with `PickleLogger`.
+
+    Notes
+    -----
+    Log consists of 1) a *.log file and 2) *_objects folder with many gen*.npy files.
+    Log as a whole can be moved and accessed with PickleLogReader from any folder, but log's inner structure must be preserved.
+    """
     def __init__(self, file):
         super().__init__(file=file)
         dir_name = os.path.dirname(file)
         self.log_root_name = dir_name
+
     def process_line(self, line, type_name):
         splitted = line.split(' ; ')
         if len(splitted) != 4:
