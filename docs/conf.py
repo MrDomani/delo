@@ -58,4 +58,6 @@ autosummary_generate = True
 autosummary_generate_overwrite = True
 autosummary_ignore_module_all = False
 
+autodoc_default_options = {'members': None}
+
 pygments_style = 'sphinx'
