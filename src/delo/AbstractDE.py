@@ -121,15 +121,18 @@ class AbstractDE(ABC):
         Parameters
         ----------
         described_function : DescribedFunction
-            function to be optimized with attributes, created with DescribedFunction.
+            Function to be optimized with attributes, created with DescribedFunction.
+        max_f_evals : int
+            Number of times that algorithm is allowed to evaluate function. When exceeded,
+            the optimization process is terminated and the found minimum is returned.
         print_every : int, optional
             Info about verbosity. Every `print_every` generation information about state of optimization
-            will be printed on console.
-        restarts_handled_externally: bool.
+            will be printed on console. If `print_every` is omitted, no information will be printed.
+        restarts_handled_externally: bool
             If True and restarting conditions are met, the algorithm ends. If False
             and restarting conditions are met, the algorithm restarts.
         rng_seed : int, optional
-            seed to be used in pseudorandom number generation. Same seed leads to same outcomes.
+            seed to be used in pseudorandom number generation. Same seed leads to same run for the algorithm.
 
         Returns
         -------

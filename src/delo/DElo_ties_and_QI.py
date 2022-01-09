@@ -24,7 +24,7 @@ class DElo_ties_and_QI(DElo):
     --------
     Optimize quadratic function in 2D
     >>> def square(x):
-    ...     return x ** 2
+    ...     return np.sum(x ** 2, axis=1)
     >>> described_function = delo.DescribedFunction(square, dimension=2, domain_lower_limit=-10, domain_upper_limit=10)
     >>> algorithm = delo.DElo_ties_and_QI(100)
     >>> solution, best_f_value = algorithm.optimize(described_function)
@@ -49,7 +49,7 @@ class DElo_ties_and_QI(DElo):
         portion_of_top_players : float from (0, 1]
             Fraction of top players to use as starting values in mutation.
         players_amount : positive int
-            How many players will be craeted. Should be a square of natural number.
+            How many players will be created. Should be a square of natural number.
         player_elo_rating_rate : non-negative float
             Constant used to calculate players' rating update based on predicted victory odds and observed effect.
         player_elo_rating_rate_MOV : non-negative float
@@ -95,8 +95,8 @@ class DElo_ties_and_QI(DElo):
     def optimize(self, described_function=None, max_f_evals=1000, print_every=None,
                  restarts_handled_externally=False, rng_seed=None):
         self.history_for_ties = np.zeros((self.history_for_ties_size, self.population_size))
-        super().optimize(described_function=described_function, max_f_evals=max_f_evals, print_every=print_every,
-                         restarts_handled_externally=restarts_handled_externally, rng_seed=rng_seed)
+        return super().optimize(described_function=described_function, max_f_evals=max_f_evals, print_every=print_every,
+                                restarts_handled_externally=restarts_handled_externally, rng_seed=rng_seed)
                          
     def _set_delta_f_and_get_improvement_bool(self):
         """

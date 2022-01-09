@@ -16,7 +16,7 @@ class DElo(AbstractDE):
     --------
     Optimize quadratic function in 2D
     >>> def square(x):
-    ...     return x ** 2
+    ...     return np.sum(x ** 2, axis=1)
     >>> described_function = delo.DescribedFunction(square, dimension=2, domain_lower_limit=-10, domain_upper_limit=10)
     >>> algorithm = delo.DElo(100)
     >>> solution, best_f_value = algorithm.optimize(described_function)
