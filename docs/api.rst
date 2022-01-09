@@ -10,5 +10,6 @@ API
     delo.DescribedFunction
     delo.Logger
     delo.LogReader
+    delo.PickleLogger
     delo.PickleLogReader
 

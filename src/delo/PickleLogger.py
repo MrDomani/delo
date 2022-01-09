@@ -2,7 +2,31 @@ from .Logger import *
 import os
 
 class PickleLogger(Logger):
+    """Modification of Logger that saves the numpy arrays as different files
+
+    This logger leads to faster saving and loading, but generates more files.
+    What is more those files are not readable for humans.
+    """
     def __init__(self, file='optimizer.log', what_to_log=None, optimizer_name='DE'):
+        """Initialise the Logger
+
+        Parameters
+        ----------
+        file: str
+            The file to which the logged information will be provided.
+            Additional files will be saved in a folder with the same name as the `file`
+            without extension followed by "_objects". If such a folder already exist,
+            the additional subsequent number is added.
+            For example, when `file`='optimizer.log', then the folder will be 'optimizer_objects', or
+            if such a folder already exists, 'optimizer_objects0' and then 'optimizer_objects1' and so on.
+        what_to_log: list, optional
+            When provided, only the subset of the `what_to_log` list will be logged. Other information
+            will not be logged.
+            Useful when only some information is needed to speed up the process of logs gathering and
+            make the log files take less place on hard drive.
+        optimizer_name: string
+            The name that will be logged on the beginning of the log with an "info" tag.
+        """
         super().__init__(file=file, what_to_log=what_to_log, optimizer_name=optimizer_name)
         absolute_path = os.path.relpath(file)
         dir_name_candidate, ext = os.path.splitext(absolute_path)
@@ -24,24 +48,24 @@ class PickleLogger(Logger):
             array = name in self.array_variables
         if array:
             self.batch_dict[name]=info
-            info = self.get_filepath_for_nparray(rel_to_logfile=True)
+            info = self._get_filepath_for_nparray(rel_to_logfile=True)
         super()._log(name, info, array=False)
 
     def _start_generation(self, generations_done, generations_after_last_restart):
-        self.log_batch()
+        self._log_batch()
         super()._start_generation(generations_done, generations_after_last_restart)
 
     def _restarting(self, generations_after_last_restart, current_best_f):
-        self.log_batch()
+        self._log_batch()
         super()._restarting(generations_after_last_restart, current_best_f)
 
-    def log_batch(self):
-        filepath = self.get_filepath_for_nparray()
+    def _log_batch(self):
+        filepath = self._get_filepath_for_nparray()
         np.savez_compressed(filepath, **self.batch_dict)
         self.batch_dict={}
         self.generation_count += 1
 
-    def get_filepath_for_nparray(self, rel_to_logfile=False):
+    def _get_filepath_for_nparray(self, rel_to_logfile=False):
         filename = 'gen' + str(self.generation_count) + '.npz'
         if rel_to_logfile:
             dirname = os.path.basename(self.dir_for_arrays)

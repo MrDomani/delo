@@ -174,7 +174,7 @@ class Logger:
         Parameters
         ----------
         file: str
-            The file to which the logged information will be provided
+            The file to which the logged information will be provided.
         what_to_log: list, optional
             When provided, only the subset of the `what_to_log` list will be logged. Other information
             will not be logged.
