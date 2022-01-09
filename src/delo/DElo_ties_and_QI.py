@@ -22,29 +22,36 @@ class DElo_ties_and_QI(DElo):
 
     Examples
     --------
-    Optimize quadratic function in 2D
+    >>> # Optimize quadratic function in 2D
     >>> import delo
     >>> import numpy as np
+    >>>
     >>> def square(x):
     ...     return np.sum(x ** 2, axis=1)
+    >>>
     >>> described_function = delo.DescribedFunction(square, dimension=2, domain_lower_limit=-10, domain_upper_limit=10)
     >>> algorithm = delo.DElo_ties_and_QI(100)
+    >>>
     >>> solution, best_f_value = algorithm.optimize(described_function)
     >>> print(solution, best_f_value)
     0.0, 0.0
 
-    If one have a function that takes a single argument and returns a single value, one have to wrap it like this:
+    >>> # If one have a function that takes a single argument and returns a single value, one have to wrap it like this:
     >>> import delo
     >>> import numpy as np
+    >>>
     >>> def my_single_argument_function(x):
     ...     return np.sum(x ** 2)
+    >>>
     >>> def my_multi_argument_wrapping(x):
     ...     return np.array([my_single_argument_function(xi) for xi in x])
+    >>>
     >>> described_my_function = delo.DescribedFunction(my_multi_argument_wrapping,
     ...                                                dimension=5,
     ...                                                domain_lower_limit=-5,
     ...                                                domain_upper_limit=5)
     >>> algorithm = delo.DElo_ties_and_QI(100)
+    >>>
     >>> solution, best_f_value = algorithm.optimize(described_my_function, max_f_evals=10000)
     >>> print(solution, best_f_value)
     [0.0 -0.0 -0.0  0.0  0.0], 1.1e-11

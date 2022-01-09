@@ -25,6 +25,7 @@ class DescribedFunction:
     --------
     >>> import delo
     >>> import numpy as np
+    >>>
     >>> described_arcsin = delo.DescribedFunction(np.argsin, dimension=1,
     ...                                           domain_lower_limit=-1,
     ...                                           domain_upper_limit=1)
@@ -36,8 +37,10 @@ class DescribedFunction:
         had to be converted into np.array of values
     >>> def my_single_argument_function(x):
     ...     return np.sum(x ** 2)
+    >>>
     >>> def my_multi_argument_wrapping(x):
     ...     return np.array([my_single_argument_function(xi) for xi in x])
+    >>>
     >>> described_my_function = delo.DescribedFunction(my_multi_argument_wrapping,
     ...                                                dimension=10,
     ...                                                domain_lower_limit=-5,

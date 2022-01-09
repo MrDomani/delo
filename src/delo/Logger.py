@@ -424,13 +424,17 @@ class LogReader:
     --------
     >>> import delo
     >>> import numpy as np
+    >>>
     >>> def square(x):
     ...     return np.sum(x ** 2, axis=1)
+    >>>
     >>> file_name = 'square_opt.log'
     >>> logger = Logger(file=file_name)
     >>> described_function = delo.DescribedFunction(square, dimension=2, domain_lower_limit=-10, domain_upper_limit=10)
     >>> algorithm = delo.DElo(10, logger=logger)
+    >>>
     >>> algorithm.optimize(described_function, rng_seed=2022)
+    >>>
     >>> logreader = LogReader(file_name)
     >>> best_fs = logreader.read_variable('current_best_f')
     Looking for current_best_f in log file

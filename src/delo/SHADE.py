@@ -12,13 +12,16 @@ class SHADE(AbstractDE):
 
     Example
     --------
-    Optimize quadratic function in 2D
+    >>> # Optimize quadratic function in 2D
     >>> import delo
     >>> import numpy as np
+    >>>
     >>> def square(x):
     ...     return np.sum(x ** 2, axis=1)
+    >>>
     >>> described_function = delo.DescribedFunction(square, dimension=2, domain_lower_limit=-10, domain_upper_limit=10)
     >>> algorithm = delo.SHADE(100)
+    >>>
     >>> solution, best_f_value = algorithm.optimize(described_function)
     >>> print(solution, best_f_value)
     0.0, 0.0
