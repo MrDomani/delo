@@ -77,8 +77,8 @@ class AbstractDE(ABC):
                 f"Provided size for population is not integer, but {population_size.__class__.__name__}, namely, {population_size}")
         if population_size <= 0:
             raise NonPositivePopulationSizeException()
-        if population_size == 1:
-            raise PopulationSize1Exception()
+        if population_size <= 4:
+            raise PopulationSizeLessEq4Exception()
 
         if p_best_rate < 0 or p_best_rate > 1:
             raise p_best_rateOutOf01Exception(

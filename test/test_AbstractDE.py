@@ -51,7 +51,7 @@ class TestAbstractDEInit(TestAbstractDESetUp):
             DElo("100")
         with self.assertRaises(CustomExceptions.NonPositivePopulationSizeException):
             DElo(0)
-        with self.assertRaises(CustomExceptions.PopulationSize1Exception):
+        with self.assertRaises(CustomExceptions.PopulationSizeLessEq4Exception):
             DElo(1)
         with self.assertRaises(CustomExceptions.p_best_rateOutOf01Exception):
             DElo(100, p_best_rate=-0.01)

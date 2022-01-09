@@ -3,6 +3,7 @@ from .AbstractDE import AbstractDE
 from scipy.spatial.distance import cdist
 from scipy.special import expit
 from warnings import warn
+from .CustomExceptions import *
 
 
 class DElo(AbstractDE):
@@ -88,7 +89,7 @@ class DElo(AbstractDE):
         population_size : positive int
         p_best_rate : float from (0,1]
             Fraction of members chosen in p_best mutation strategy.
-        portion_of_top_players : float from (0, 1]
+        portion_of_top_players : float from [1/population_size, 1]
             Fraction of top players to use as starting values in mutation.
         players_amount : positive int
             How many players will be craeted. Should be a square of natural number.
@@ -113,6 +114,9 @@ class DElo(AbstractDE):
                          **logger_kwargs)
 
         self.number_of_improvements = 0
+
+        if portion_of_top_players > 1 or portion_of_top_players < 1/population_size:
+            raise portion_of_top_playersImproperException()
         self.portion_of_top_players = portion_of_top_players
 
         self._task_ratings = np.zeros(population_size)

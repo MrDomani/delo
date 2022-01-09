@@ -38,8 +38,8 @@ class NonPositivePopulationSizeException(Exception):
         self.message = message
         super().__init__(self.message)
 
-class PopulationSize1Exception(Exception):
-    def __init__(self, message="Provided size for population is equal to 1"):
+class PopulationSizeLessEq4Exception(Exception):
+    def __init__(self, message="Provided size for population has to be at least 5"):
         self.message = message
         super().__init__(self.message)
 
@@ -50,6 +50,11 @@ class PopulationSizeNotIntException(Exception):
 
 class p_best_rateOutOf01Exception(Exception):
     def __init__(self, message="Provided p_best_rate is out of [0,1] range"):
+        self.message = message
+        super().__init__(self.message)
+
+class portion_of_top_playersImproperException(Exception):
+    def __init__(self, message=''):
         self.message = message
         super().__init__(self.message)
 

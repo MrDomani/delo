@@ -12,7 +12,7 @@ class PickleLogger(Logger):
 
         Parameters
         ----------
-        file: str
+        file: string
             The file to which the logged information will be provided.
             Additional files will be saved in a folder with the same name as the file
             without extension followed by "_objects". If such a folder already exist,
