@@ -98,6 +98,8 @@ class DElo(AbstractDE):
         restart_eps_y : float, optional.
             Minimal acceptable absolute difference between function values. If smaller, a restart occurs.
             If None, this condition will not be used.
+        logger : Logger
+            If provided, logs to the file information on the process of optimizing
         """
         super().__init__(population_size,
                          p_best_rate=p_best_rate,

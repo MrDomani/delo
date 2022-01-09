@@ -163,7 +163,26 @@ class FakeLogger:
 
 
 class Logger:
+    """Logs information on the process of optimizing with DE algorithm.
+
+    An istance of it can be added to DE algorithm (DElo, DElo_ties_and_QI, SHADE) with the `logger` parameter.
+
+    """
     def __init__(self, file='optimizer.log', what_to_log=None, optimizer_name='DE'):
+        """Initialise the Logger
+
+        Parameters
+        ----------
+        file: str
+            The file to which the logged information will be provided
+        what_to_log: list, optional
+            When provided, only the subset of the `what_to_log` list will be logged. Other information
+            will not be logged.
+            Useful when only some information is needed to speed up the process of logs gathering and
+            make the log files take less place on hard drive.
+        optimizer_name: string
+            The name that will be logged on the beginning of the log with an "info" tag.
+        """
         self.what_to_log = what_to_log
 
         self.pythonLogger = logging.getLogger(name="Optimizer_Logger" + file)

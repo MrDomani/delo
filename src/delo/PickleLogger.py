@@ -53,7 +53,7 @@ class PickleLogger(Logger):
 
 class PickleLogReader(LogReader):
     """
-    Read logs created with ``PickleLogger``.
+    Read logs created with *PickleLogger*.
 
     Warnings
     -----
