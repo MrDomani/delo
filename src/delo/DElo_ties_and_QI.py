@@ -30,6 +30,20 @@ class DElo_ties_and_QI(DElo):
     >>> solution, best_f_value = algorithm.optimize(described_function)
     >>> print(solution, best_f_value)
     0.0, 0.0
+
+    If one have a function that takes a single argument and returns a single value, one have to wrap it like this:
+    >>> def my_single_argument_function(x):
+    ...     return np.sum(x ** 2)
+    >>> def my_multi_argument_wrapping(x):
+    ...     return np.array([my_single_argument_function(xi) for xi in x])
+    >>> described_my_function = delo.DescribedFunction(my_multi_argument_wrapping,
+    ...                                                dimension=5,
+    ...                                                domain_lower_limit=-5,
+    ...                                                domain_upper_limit=5)
+    >>> algorithm = delo.DElo_ties_and_QI(100)
+    >>> solution, best_f_value = algorithm.optimize(described_my_function, max_f_evals=10000)
+    >>> print(solution, best_f_value)
+    [0.0 -0.0 -0.0  0.0  0.0], 1.1e-11
     """
     def __init__(self, population_size, p_best_rate=0.2, use_archive=True, archive_size=50,
                  portion_of_top_players=0.2, players_amount=100,

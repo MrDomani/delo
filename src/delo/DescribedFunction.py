@@ -24,10 +24,22 @@ class DescribedFunction:
     Examples
     --------
     >>> described_arcsin = delo.DescribedFunction(np.argsin, dimension=1,
-    ...                    domain_lower_limit=-1, domain_upper_limit=1)
+    ...                                           domain_lower_limit=-1,
+    ...                                           domain_upper_limit=1)
     DescribedFunction was created to be used in DE algorithms. Specifying domain limits is required
     >>> described_square_root = delo.DescribedFunction(np.sqrt, dimension=1,
-    ...                         domain_lower_limit=0, domain_upper_limit=5)
+    ...                                                domain_lower_limit=0,
+    ...                                                domain_upper_limit=5)
+    For multidimentional functions, appropriate wrapping is required: the np.array of arguments
+        had to be converted into np.array of values
+    >>> def my_single_argument_function(x):
+    ...     return np.sum(x ** 2)
+    >>> def my_multi_argument_wrapping(x):
+    ...     return np.array([my_single_argument_function(xi) for xi in x])
+    >>> described_my_function = delo.DescribedFunction(my_multi_argument_wrapping,
+    ...                                                dimension=10,
+    ...                                                domain_lower_limit=-5,
+    ...                                                domain_upper_limit=5)
     """
     def __init__(self, function, dimension, domain_lower_limit=None, domain_upper_limit=None, name=None):
         """
