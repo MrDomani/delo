@@ -4,7 +4,7 @@ from .DistributionUtilities import edited_quantile
 
 class DElo_ties_and_QI(DElo):
     """
-    Differential Evolution with Elo ranking system
+    Modification of DElo algorithm - Differential Evolution with Elo ranking system
 
     Optimization algorithm from Differential Evolution family. F and CR parameters are adjusted through optimizing
     using Elo ranking system. Updates in rating are based on relative change of function value and on loss-tie-win odds.
@@ -20,7 +20,7 @@ class DElo_ties_and_QI(DElo):
     Elo ratings, apart from predicting victory odds, are used to predict relative function difference.
     The prediction function is (rating_difference * `expectation_factor`).
 
-    Example
+    Examples
     --------
     Optimize quadratic function in 2D
     >>> def square(x):

@@ -12,7 +12,7 @@ class DElo(AbstractDE):
     using Elo ranking system. Utilized mutation strategy: p-best. Succesful members from past will be stored in archive.
     Restart condition: minimum absolute dispersion across dimension.
 
-    Example
+    Examples
     --------
     Optimize quadratic function in 2D
     >>> def square(x):

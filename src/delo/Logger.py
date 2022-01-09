@@ -423,7 +423,7 @@ class LogReader:
     Example
     --------
     >>> def square(x):
-    ...     return x ** 2
+    ...     return np.sum(x ** 2, axis=1)
     >>> file_name = 'square_opt.log'
     >>> logger = Logger(file=file_name)
     >>> described_function = delo.DescribedFunction(square, dimension=2, domain_lower_limit=-10, domain_upper_limit=10)

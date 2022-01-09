@@ -5,9 +5,10 @@ API
     :toctree: generated
 
     delo.DElo
+    delo.DElo_ties_and_QI
     delo.SHADE
     delo.DescribedFunction
-    delo.DElo_ties_and_QI
+    delo.Logger
     delo.LogReader
     delo.PickleLogReader
 

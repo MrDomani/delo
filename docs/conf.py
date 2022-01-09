@@ -19,7 +19,7 @@ import delo
 # -- Project information -----------------------------------------------------
 
 project = 'delo'
-copyright = '2021, Przemyslaw Chojecki, Pawel Morgen, Michal Okulewicz'
+copyright = '2022, Przemyslaw Chojecki, Pawel Morgen, Michal Okulewicz'
 author = 'Przemyslaw Chojecki, Pawel Morgen, Michal Okulewicz'
 
 
