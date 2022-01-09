@@ -14,13 +14,13 @@ class PickleLogger(Logger):
         ----------
         file: str
             The file to which the logged information will be provided.
-            Additional files will be saved in a folder with the same name as the `file`
+            Additional files will be saved in a folder with the same name as the file
             without extension followed by "_objects". If such a folder already exist,
             the additional subsequent number is added.
-            For example, when `file`='optimizer.log', then the folder will be 'optimizer_objects', or
+            For example, when file='optimizer.log', then the folder will be 'optimizer_objects', or
             if such a folder already exists, 'optimizer_objects0' and then 'optimizer_objects1' and so on.
         what_to_log: list, optional
-            When provided, only the subset of the `what_to_log` list will be logged. Other information
+            When provided, only the subset of the what_to_log list will be logged. Other information
             will not be logged.
             Useful when only some information is needed to speed up the process of logs gathering and
             make the log files take less place on hard drive.
