@@ -23,6 +23,8 @@ class DescribedFunction:
 
     Examples
     --------
+    >>> import delo
+    >>> import numpy as np
     >>> described_arcsin = delo.DescribedFunction(np.argsin, dimension=1,
     ...                                           domain_lower_limit=-1,
     ...                                           domain_upper_limit=1)

@@ -23,6 +23,8 @@ class DElo_ties_and_QI(DElo):
     Examples
     --------
     Optimize quadratic function in 2D
+    >>> import delo
+    >>> import numpy as np
     >>> def square(x):
     ...     return np.sum(x ** 2, axis=1)
     >>> described_function = delo.DescribedFunction(square, dimension=2, domain_lower_limit=-10, domain_upper_limit=10)
@@ -32,6 +34,8 @@ class DElo_ties_and_QI(DElo):
     0.0, 0.0
 
     If one have a function that takes a single argument and returns a single value, one have to wrap it like this:
+    >>> import delo
+    >>> import numpy as np
     >>> def my_single_argument_function(x):
     ...     return np.sum(x ** 2)
     >>> def my_multi_argument_wrapping(x):

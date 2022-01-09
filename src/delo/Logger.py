@@ -422,6 +422,8 @@ class LogReader:
 
     Example
     --------
+    >>> import delo
+    >>> import numpy as np
     >>> def square(x):
     ...     return np.sum(x ** 2, axis=1)
     >>> file_name = 'square_opt.log'

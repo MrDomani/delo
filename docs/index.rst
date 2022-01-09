@@ -39,6 +39,7 @@ Example
    algorithm = DElo(10)
    algorithm.optimize(described_function)
 
+
 Contribute
 ----------
 
