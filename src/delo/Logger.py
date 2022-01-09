@@ -567,7 +567,7 @@ class LogReader:
             types of variables to be read. If not provided, default variable types will be used.
             Acceptable types: "str", "int", "float", "bool", "list", "np.array".
         silence : bool
-            Whether print messages about progess (False) ot not (True).
+            Whether to print messages about progress (False) ot not (True).
 
         Returns
         -------
@@ -599,7 +599,7 @@ class LogReader:
             type of variable to be read. If not provided, default variable type will be used.
             Acceptable types: "str", "int", "float", "bool", "list", "np.array".
         silence : bool
-            Whether print messages about progess (False) ot not (True).
+            Whether to print messages about progress (False) ot not (True).
 
         Returns
         -------

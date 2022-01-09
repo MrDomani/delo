@@ -53,7 +53,7 @@ class DescribedFunction:
         Parameters
         ----------
         function : callable
-            function with 2D `np.ndarray` input and scalar output.
+            function with 2D ``np.ndarray`` input and scalar output.
         dimension : int
             Dimension of function's domain.
         domain_lower_limit : np.array, float, optional

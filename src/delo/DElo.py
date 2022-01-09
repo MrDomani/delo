@@ -10,7 +10,7 @@ class DElo(AbstractDE):
     """Differential Evolution with Elo ranking system
 
     Optimization algorithm from Differential Evolution family. F and CR parameters are adjusted through optimizing
-    using Elo ranking system. Utilized mutation strategy: p-best. Succesful members from past will be stored in archive.
+    using Elo ranking system. Utilized mutation strategy: ``p-best``. Succesful members from past will be stored in archive.
     Restart condition: minimum absolute dispersion across dimension.
 
     Examples
@@ -88,18 +88,16 @@ class DElo(AbstractDE):
         ----------
         population_size : positive int
         p_best_rate : float from (0,1]
-            Fraction of members chosen in p_best mutation strategy.
+            Fraction of members chosen in ``p_best`` mutation strategy.
         portion_of_top_players : float from [1/population_size, 1]
             Fraction of top players to use as starting values in mutation.
         players_amount : positive int
-            How many players will be craeted. Should be a square of natural number.
-        restart_eps_x : float, optional.
-            Minimal acceptable absolute distance between members. If smaller, a restart occurs.
-            If None, this condition will not be used.
-        restart_eps_y : float, optional.
-            Minimal acceptable absolute difference between function values. If smaller, a restart occurs.
-            If None, this condition will not be used.
-        logger : Logger
+            How many players will be created. Has to be a square of natural number.
+        restart_eps_x : float, optional
+            Minimal acceptable absolute distance between members. If smaller, a restart occurs. If ``None``, restarting will never occur.
+        restart_eps_y : float, optional
+            Minimal acceptable absolute difference between function values. If smaller, a restart occurs. If None, this will be same as ``restart_eps_x``.
+        logger : Logger, PickleLogger, optional
             If provided, logs to the file information on the process of optimizing
         """
         super().__init__(population_size,

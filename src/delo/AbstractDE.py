@@ -121,7 +121,7 @@ class AbstractDE(ABC):
         Parameters
         ----------
         described_function : DescribedFunction
-            Function to be optimized with attributes, created with DescribedFunction.
+            Function to be optimized with attributes.
         max_f_evals : int
             Number of times that algorithm is allowed to evaluate function. When exceeded,
             the optimization process is terminated and the found minimum is returned.

@@ -74,7 +74,7 @@ class DElo_ties_and_QI(DElo):
         portion_of_top_players : float from (0, 1]
             Fraction of top players to use as starting values in mutation.
         players_amount : positive int
-            How many players will be created. Should be a square of natural number.
+            How many players will be created. Has to be a square of natural number.
         player_elo_rating_rate : non-negative float
             Constant used to calculate players' rating update based on predicted victory odds and observed effect.
         player_elo_rating_rate_MOV : non-negative float
@@ -84,19 +84,17 @@ class DElo_ties_and_QI(DElo):
         task_elo_rating_rate_MOV : non-negative float
             Constant used to calculate tasks' rating update based on expected and observed relative function difference.
         history_for_ties_size : positive int
-            Function differences of previous `history_for_ties_size` will be recorded and used to determine win/tie/loss.
+            Function differences of previous ``history_for_ties_size`` will be recorded and used to determine win/tie/loss.
         win_tie : float from [0,1]
-            Whenever a positive new function difference is less than `win_tie` percentile of previous function differences, it is a tie. Otherwise - a win.
+            Whenever a positive new function difference is less than ``win_tie`` percentile of previous function differences, it is a tie. Otherwise - a win.
         tie_loss : float from [0,1]
-            Whenever a negative new function difference is less than `tie_loss` percentile of history, it is a tie. Otherwise - a loss.
+            Whenever a negative new function difference is bigger than ``tie_loss`` percentile of history, it is a tie. Otherwise - a loss.
         expectation_factor : non-negative float
-            Used to calculate expected relative function difference as (rating_difference * `expectation_factor`).
-        restart_eps_x : float, optional.
-            Minimal acceptable absolute distance between members. If smaller, a restart occurs.
-            If None, this condition will not be used.
-        restart_eps_y : float, optional.
-            Minimal acceptable absolute difference between function values. If smaller, a restart occurs.
-            If None, this condition will not be used.
+            Used to calculate expected relative function difference as (rating_difference * ``expectation_factor``).
+        restart_eps_x : float, optional
+            Minimal acceptable absolute distance between members. If smaller, a restart occurs. If None, restarting will never occur.
+        restart_eps_y : float, optional
+            Minimal acceptable absolute difference between function values. If smaller, a restart occurs. If None, this will be same as ``restart_eps_x``.
         """
         super().__init__(population_size=population_size, p_best_rate=p_best_rate, use_archive=use_archive,
                          archive_size=archive_size, portion_of_top_players=portion_of_top_players, players_amount=players_amount,

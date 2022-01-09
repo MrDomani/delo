@@ -40,10 +40,10 @@ class SHADE(AbstractDE):
         population_size : positive int
         p_best_rate : float from (0,1]
             fraction of members chosen in p_best mutation strategy
-        restart_eps_x : positive float, optional
-            minimal acceptable relative distance between members. If smaller, a restart occurs
-        restart_eps_y : positive float, optional
-            minimal acceptable relative difference between function values. If smaller, a restart occurs
+        restart_eps_x : float, optional
+            Minimal acceptable absolute distance between members. If smaller, a restart occurs. If None, restarting will never occur.
+        restart_eps_y : float, optional
+            Minimal acceptable absolute difference between function values. If smaller, a restart occurs. If None, this will be same as ``restart_eps_x``.
         initial_M_F : float from [0, 1]
         initial_M_CR : float from [0, 1]
         """

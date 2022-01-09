@@ -113,7 +113,7 @@ class PickleLogReader(LogReader):
 
         Parameters
         ----------
-        file : str
+        file : string
             path to \*.log file created with ``LogReader``.
 
         """
