@@ -27,6 +27,7 @@ Clone repo and run from root:
 
 Example
 -------
+
 If one have a function that can take a np.array of arguments
 .. code-block:: python
    :linenos:
