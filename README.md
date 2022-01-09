@@ -14,6 +14,41 @@ That installs a **developer** version - any changes to files in package source w
 
 To install a **regular** version, just execute without `-e` option.
 
+## Example
+```
+import delo
+```
+
+If one have a function that takes a single argument and returns a single value, like this:
+```
+def my_single_argument_function(x):
+    return np.sum(x ** 2)
+```
+one have to wrap it like this:
+```
+def my_multi_argument_wrapping(x):
+    return np.array([my_single_argument_function(xi) for xi in x])
+
+described_my_function = delo.DescribedFunction(my_multi_argument_wrapping,
+                                               dimension=5,
+                                               domain_lower_limit=-5,
+                                               domain_upper_limit=5)
+```
+Then, one can use DElo to find the optimal value of the function:
+```
+algorithm = delo.DElo(100)
+solution, best_f_value = algorithm.optimize(described_my_function, max_f_evals=10000)
+print(solution, best_f_value)
+# [0.0  0.0 -0.0  0.0  0.0], 8.5e-09
+```
+Or one can use DEloTQI to find the optimal value of the function:
+```
+algorithm = delo.DElo_ties_and_QI(100)
+solution, best_f_value = algorithm.optimize(described_my_function, max_f_evals=10000)
+print(solution, best_f_value)
+# [0.0 -0.0 -0.0 -0.0  0.0], 1.1e-11
+```
+
 ## References:
 1. [SHADE](https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.306.5259&rep=rep1&type=pdf)
 2. "For a more comprehensive introduction to ES, see Beyer and Schwefel (2002)" ~ [preprint from 2021: "Hyperparameter Optimization: Foundations, Algorithms, Best Practices and Open Challenges"](https://www.researchgate.net/publication/353234152_Hyperparameter_Optimization_Foundations_Algorithms_Best_Practices_and_Open_Challenges?pli=1&loginT=7g6vBIQMadxoexmLGqhqYgf_hbU7syYOMK2fVRg8NuujDPL6zUglx3nMuG4grxh27pcimvyCLP3fk9K7kqieWvrC4agyDrs5FQ&uid=UYtHAAH0ScOSPfHCn0vHrwlgRHalOpRtqDfj&cp=re442_pb_hnsg_naas_p113&ch=reg&utm_medium=email&utm_source=researchgate&utm_campaign=re442&utm_term=re442_pb_hnsg_naas&utm_content=re442_pb_hnsg_naas_p113)
