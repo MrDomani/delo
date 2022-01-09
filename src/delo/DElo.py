@@ -14,7 +14,7 @@ class DElo(AbstractDE):
 
     Examples
     --------
-    Optimize quadratic function in 2D::
+    >>> # Optimize quadratic function in 2D::
     >>> import delo
     >>> import numpy as np
     >>> def square(x):
@@ -23,9 +23,9 @@ class DElo(AbstractDE):
     >>> algorithm = delo.DElo(100)
     >>> solution, best_f_value = algorithm.optimize(described_function)
     >>> print(solution, best_f_value)
-    0.0, 0.0
+    >>> # 0.0, 0.0
 
-    If one have a function that takes a single argument and returns a single value, one have to wrap it like this::
+    >>> # If one have a function that takes a single argument and returns a single value, one have to wrap it like this::
     >>> import delo
     >>> import numpy as np
     >>> def my_single_argument_function(x):
@@ -39,7 +39,7 @@ class DElo(AbstractDE):
     >>> algorithm = delo.DElo(100)
     >>> solution, best_f_value = algorithm.optimize(described_my_function, max_f_evals=10000)
     >>> print(solution, best_f_value)
-    [0.0  0.0 -0.0  0.0  0.0], 8.5e-09
+    >>> # [0.0  0.0 -0.0  0.0  0.0], 8.5e-09
     """
 
     class Players:
