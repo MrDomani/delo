@@ -25,8 +25,8 @@ Clone repo and run from root:
 
     `pip install .`
 
-Example
--------
+Example 1
+---------
 
 .. code-block:: python
    :linenos:
@@ -42,18 +42,21 @@ Example
    algorithm = DElo(10)
    algorithm.optimize(described_function)
 
-Example
--------
+Example 2
+---------
 
 .. code-block:: python
    :linenos:
 
    from delo import DElo, DescribedFunction
    import numpy as np
+
    def my_single_argument_function(x):
        return np.sum(x ** 2)
+
    def my_multi_argument_wrapping(x):
        return np.array([my_single_argument_function(xi) for xi in x])
+
    described_my_function = delo.DescribedFunction(my_multi_argument_wrapping,
                                                   dimension=5,
                                                   domain_lower_limit=-5,
