@@ -41,23 +41,6 @@ Example
    algorithm = DElo(10)
    algorithm.optimize(described_function)
 
-If one have a function that takes a single argument and returns a single value:
-.. code-block:: python
-   :linenos:
-
-    from delo import DElo, DescribedFunction
-    import numpy as np
-    def my_single_argument_function(x):
-        return np.sum(x ** 2)
-    def my_multi_argument_wrapping(x):
-        return np.array([my_single_argument_function(xi) for xi in x])
-    described_my_function = delo.DescribedFunction(my_multi_argument_wrapping,
-                                                   dimension=5,
-                                                   domain_lower_limit=-5,
-                                                   domain_upper_limit=5)
-    algorithm = delo.DElo(100)
-    algorithm.optimize(described_my_function, max_f_evals=10000)
-
 Contribute
 ----------
 
