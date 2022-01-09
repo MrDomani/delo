@@ -36,7 +36,7 @@ class DElo_ties(DElo):
         self.tie_loss = tie_loss
         self._history_for_ties = None
 
-        self.logger.DElo_ties_init(self._history_for_ties, self.win_tie, self.tie_loss)
+        self.logger._DElo_ties_init(self._history_for_ties, self.win_tie, self.tie_loss)
 
     def optimize(self, described_function=None, max_f_evals=1000, print_every=None,
                  restarts_handled_externally=False, rng_seed=None):
@@ -55,7 +55,7 @@ class DElo_ties(DElo):
         indices_for_swap = (f_difference >= 0)  # True is a win for a player
         self.number_of_improvements += sum(indices_for_swap)
 
-        self.logger.indices_for_swap(f_difference, self.delta_f, indices_for_swap)
+        self.logger._indices_for_swap(f_difference, self.delta_f, indices_for_swap)
 
         # ties
         positive_history_for_ties = self._history_for_ties[self._history_for_ties >= 0]  # one dimensional np.array
@@ -73,7 +73,7 @@ class DElo_ties(DElo):
         self._population[indices_for_swap] = self._population_trial[indices_for_swap]
         self._population_f_value[indices_for_swap] = self._population_trial_f_value[indices_for_swap]
 
-        self.logger.population(self._population, self._population_f_value)
+        self.logger._population(self._population, self._population_f_value)
 
         expected_results = self._calculate_expected_results()
         actual_results = indices_for_swap.astype(float)

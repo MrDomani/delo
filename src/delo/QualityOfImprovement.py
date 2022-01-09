@@ -24,7 +24,7 @@ class DElo_QualityOfImprovement(DElo):
                          variation_for_CR=variation_for_CR, scale_for_F=scale_for_F,
                          logger=logger, **logger_kwargs)
         self.expectation_factor=expectation_factor
-        self.logger.log('expectation_factor', expectation_factor, False)
+        self.logger._log('expectation_factor', expectation_factor, False)
                          
     def _calculate_expected_results(self):
         rating_differences = self.players.rating[self._indices_of_selected_players] - self._task_ratings

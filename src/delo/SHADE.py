@@ -60,7 +60,7 @@ class SHADE(AbstractDE):
         self.initial_M_CR = initial_M_CR
         self.initial_M_F = initial_M_F
 
-        self.logger.SHADE_init(self.history_size, self.initial_M_CR, self.initial_M_F)
+        self.logger._SHADE_init(self.history_size, self.initial_M_CR, self.initial_M_F)
 
     def _reset_CR_and_F(self):
         self.k = -1 # index for memory of CR and F; It will start at 0, because it is increased in the beginning of generation() function
@@ -81,7 +81,7 @@ class SHADE(AbstractDE):
     def _selection(self):
         have_improved = self._set_delta_f_and_get_improvement_bool()
         if sum(have_improved) == 0:
-            self.logger.unsuccessful_generation()
+            self.logger._unsuccessful_generation()
             if isinstance(self.logger, FakeLogger):  # if we do log, we want to have logs of the proper size
                 return  # this generation was unsuccessful
 
@@ -100,9 +100,9 @@ class SHADE(AbstractDE):
             self.M_CR[self.k] = sum(w * self._CR)
             self.M_F[self.k] = sum((w * (self._F ** 2))) / sum((w * self._F))
 
-            self.logger.new_CR_F(w, self._CR[w > 0], self.M_CR[self.k], self._F[w > 0], self.M_F[self.k])
+            self.logger._new_CR_F(w, self._CR[w > 0], self.M_CR[self.k], self._F[w > 0], self.M_F[self.k])
 
-        self.logger.updated_CR_F(self.M_CR, self.M_F)
+        self.logger._updated_CR_F(self.M_CR, self.M_F)
 
     def _check_restart_condition(self):
         """
@@ -123,17 +123,17 @@ class SHADE(AbstractDE):
         # RelMax
         if np.min(self._population.max(axis=0) - self._population.min(axis=0)) <= \
                 self.restart_eps_x * np.abs(self._population).max():
-            self.logger.restarting_cond_x(np.min(self._population.max(axis=0) - self._population.min(axis=0)),
-                                          np.abs(self._population).max(),
-                                          self.restart_eps_x, abs=True)
+            self.logger._restarting_cond_x(np.min(self._population.max(axis=0) - self._population.min(axis=0)),
+                                           np.abs(self._population).max(),
+                                           self.restart_eps_x, abs=True)
             cond_restart = True
 
         if (self.current_worst_f - self.current_best_f) <= \
                 self.restart_eps_y * abs(self.current_worst_f):
-            self.logger.restarting_cond_y((self.current_worst_f - self.current_best_f),
-                                          abs(self.current_worst_f),
-                                          self.restart_eps_y,
-                                          abs=False)  # abs is False, cos it is relative, cos eps_y is multiplied by worst_f
+            self.logger._restarting_cond_y((self.current_worst_f - self.current_best_f),
+                                           abs(self.current_worst_f),
+                                           self.restart_eps_y,
+                                           abs=False)  # abs is False, cos it is relative, cos eps_y is multiplied by worst_f
             cond_restart = True
 
         return cond_restart

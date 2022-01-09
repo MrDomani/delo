@@ -54,9 +54,9 @@ class AbstractDE(ABC):
         self._number_of_improvements = 0
 
         self._process_logger_init_args(logger_kwargs, logger)
-        self.logger.AbstractDE_init(self.restart_eps_x, self.restart_eps_y, self.use_archive,
-                                    self.max_archive_size, self.population_size, self.p_best_rate,
-                                    self.variation_for_CR, self.scale_for_F)
+        self.logger._AbstractDE_init(self.restart_eps_x, self.restart_eps_y, self.use_archive,
+                                     self.max_archive_size, self.population_size, self.p_best_rate,
+                                     self.variation_for_CR, self.scale_for_F)
 
     def _check_init_correctness(self, restart_eps_x, restart_eps_y, use_archive, max_archive_size,
                                 population_size, p_best_rate):
@@ -144,7 +144,7 @@ class AbstractDE(ABC):
         generations_done = 0
         generations_after_last_restart = 0
         while self._remaining_evals >= self.population_size:
-            self.logger.start_generation(generations_done, generations_after_last_restart)
+            self.logger._start_generation(generations_done, generations_after_last_restart)
             if self.printer.generation(generations_done, generations_after_last_restart,
                                        self.current_best_f, self._best_f_value_ever,
                                        self._number_of_improvements):
@@ -154,7 +154,7 @@ class AbstractDE(ABC):
             # restart condition
             if self._check_restart_condition():
                 self.printer.restarting(generations_after_last_restart, self.current_best_f)
-                self.logger.restarting(generations_after_last_restart, self.current_best_f)
+                self.logger._restarting(generations_after_last_restart, self.current_best_f)
 
                 if restarts_handled_externally:
                     return  # external function can restart the algorithm
@@ -164,28 +164,28 @@ class AbstractDE(ABC):
             generations_done += 1
             generations_after_last_restart += 1
 
-        self.logger.end_optimization(self._generations_processed, self._best_member_ever, self._best_f_value_ever,
-                                     self.restarts)
+        self.logger._end_optimization(self._generations_processed, self._best_member_ever, self._best_f_value_ever,
+                                      self.restarts)
         self.printer.optimizing_complete(self.restarts, generations_done, self._remaining_evals,
                                          self._generations_processed, self._best_f_value_ever)
 
         return self.get_solution()
 
     def _prepare_optimization(self, described_function, max_f_evals, print_every, rng_seed):
-        self.logger.start_optimization(rng_seed)
+        self.logger._start_optimization(rng_seed)
 
         self.rng = np.random.default_rng(seed=rng_seed)
 
         # check correctness of input
         if not isinstance(described_function, DescribedFunction):
-            self.logger.function_not_Describedfunction()
+            self.logger._function_not_Describedfunction()
             raise Exception('`described_function` must be of Describedfunction class.')
         self.function = described_function
 
         self._remaining_evals = max_f_evals
         self._restart_search(initial=True)
 
-        self.logger.optimization_preparation(max_f_evals, self.function.dimension, self.number_of_best)
+        self.logger._optimization_preparation(max_f_evals, self.function.dimension, self.number_of_best)
         if print_every is None or int(print_every) < 1:
             self.printer = FakePrinter(print_every)
         else:
@@ -198,7 +198,7 @@ class AbstractDE(ABC):
         if initial:
             self.restarts = 0
         else:
-            self.logger.restart()
+            self.logger._restart()
             self.restarts += 1
         self._clear_archive()
         self._reset_CR_and_F()
@@ -212,7 +212,7 @@ class AbstractDE(ABC):
         else:
             self.archive = None
 
-        self.logger.archive(self.archive)
+        self.logger._archive(self.archive)
 
     @abstractmethod
     def _reset_CR_and_F(self):
@@ -236,7 +236,7 @@ class AbstractDE(ABC):
         self._population_f_value = self.function.call(self._population)
         self._population_trial_f_value = self._population_f_value.copy()
 
-        self.logger.population(self._population, self._population_f_value)
+        self.logger._population(self._population, self._population_f_value)
 
     def _set_p_best(self):
         scores_index_sorted = self._population_f_value.argsort()
@@ -250,9 +250,9 @@ class AbstractDE(ABC):
         self.current_best_i = self.current_p_best_i[0]
         self.current_best_f = self.current_p_best_f[0]
 
-        self.logger.p_best(scores_index_sorted, self.current_worst_i, self.current_worst_f,
-                           self.current_p_best_i, self.current_p_best_f,
-                           self.current_best_i, self.current_best_f)
+        self.logger._p_best(scores_index_sorted, self.current_worst_i, self.current_worst_f,
+                            self.current_p_best_i, self.current_p_best_f,
+                            self.current_best_i, self.current_best_f)
 
     def _update_solution(self):
         """
@@ -264,7 +264,7 @@ class AbstractDE(ABC):
             self._best_member_ever = self._population[self.current_best_i]
             self._best_f_value_ever = self.current_best_f
 
-            self.logger.update_solution(self._best_member_ever, self._best_f_value_ever)
+            self.logger._update_solution(self._best_member_ever, self._best_f_value_ever)
 
     def _process_generation(self):
         """Process one generation (iteration) of optimizing process. """
@@ -291,7 +291,7 @@ class AbstractDE(ABC):
         self._F = chopped_cauchy(rng=self.rng, size=self.population_size, location=drawn_M_F,
                                  scale=self.scale_for_F)  # from DistributionUtilities.py
 
-        self.logger.drawn_CR_F(drawn_M_CR, drawn_M_F, self._CR, self._F)
+        self.logger._drawn_CR_F(drawn_M_CR, drawn_M_F, self._CR, self._F)
 
     @abstractmethod
     def _draw_M_CR_and_M_F(self):
@@ -301,13 +301,13 @@ class AbstractDE(ABC):
         r1, r2 = self._choose_indices_for_mutation()
         x_r1, x_r2 = self._get_members_for_mutation(r1, r2)
 
-        self.logger.members_for_mutation(r1, r2, x_r1, x_r2)
+        self.logger._members_for_mutation(r1, r2, x_r1, x_r2)
 
         x_p_best = self._choose_p_best_members_for_mutation()
         self._population_trial = self._population + ((x_p_best - self._population + x_r1[:, :] - x_r2[:, :]).T * self._F).T
         self._trim_population_trial_to_domain()
 
-        self.logger.population_trial(x_p_best, self._population_trial)
+        self.logger._population_trial(x_p_best, self._population_trial)
 
     def _choose_indices_for_mutation(self):
         if self.use_archive and self.archive.shape[0] != 0:  # if it is 0, archive is empty
@@ -344,7 +344,7 @@ class AbstractDE(ABC):
 
         p_best_members_indices = self.current_p_best_i[self.rng.integers(numbers_of_specimens_to_choose_from)]
 
-        self.logger.p_best_draw(numbers_of_specimens_to_choose_from, p_best_members_indices)
+        self.logger._p_best_draw(numbers_of_specimens_to_choose_from, p_best_members_indices)
 
         p_best_members = self._population[p_best_members_indices]
         return p_best_members
@@ -384,7 +384,7 @@ class AbstractDE(ABC):
         replace_with_trial_coord = self._get_replacement_decisions_for_crossover()
         self._population_trial = np.where(replace_with_trial_coord, self._population_trial, self._population)
 
-        self.logger.swap_population_trial(replace_with_trial_coord, self._population_trial)
+        self.logger._swap_population_trial(replace_with_trial_coord, self._population_trial)
 
     def _get_replacement_decisions_for_crossover(self):
         """
@@ -419,7 +419,7 @@ class AbstractDE(ABC):
         f_difference = self._population_f_value - self._population_trial_f_value  # we want this to be positive
         self._delta_f = f_difference * (f_difference > 0)
         have_improved = (f_difference >= 0)
-        self.logger.indices_for_swap(f_difference, self._delta_f, have_improved)
+        self.logger._indices_for_swap(f_difference, self._delta_f, have_improved)
         return have_improved
 
     def _process_evaluation_results(self, have_improved):  # it is small function in DE, but it is overwritten in DElo
@@ -441,16 +441,16 @@ class AbstractDE(ABC):
             number_to_delete = int(self.archive.shape[0] - self.max_archive_size)
             r = self.rng.choice(self.archive.shape[0], size=number_to_delete, replace=False)
 
-            self.logger.remove_from_archive(r)
+            self.logger._remove_from_archive(r)
 
             self.archive = np.delete(self.archive, r, 0)  # 0 means delete rows, not columns
 
-        self.logger.archive(self.archive)
+        self.logger._archive(self.archive)
 
     def _replace_with_improved_members(self, have_improved):
         self._population[have_improved] = self._population_trial[have_improved]
         self._population_f_value[have_improved] = self._population_trial_f_value[have_improved]
-        self.logger.population(self._population, self._population_f_value)
+        self.logger._population(self._population, self._population_f_value)
         self._set_p_best()
         self._update_solution()
 

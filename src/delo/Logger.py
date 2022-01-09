@@ -19,146 +19,146 @@ class FakeLogger:
     def __init__(self):
         pass
 
-    def log_multiple(self, **kwargs):
+    def _log_multiple(self, **kwargs):
         pass
 
-    def log(self, name, info, array):
+    def _log(self, name, info, array):
         pass
 
     # AbstractDE
-    def AbstractDE_init(self, restart_eps_x, restart_eps_y, use_archive,
+    def _AbstractDE_init(self, restart_eps_x, restart_eps_y, use_archive,
                         archive_size, population_size, p_best_rate,
                         variation_for_CR, scale_for_F):
         pass
 
-    def start_optimization(self, rng_seed):
+    def _start_optimization(self, rng_seed):
         pass
 
-    def function_not_Describedfunction(self):
+    def _function_not_Describedfunction(self):
         pass
 
-    def improper_population_size(self, pop_size_given, pop_size_used):
+    def _improper_population_size(self, pop_size_given, pop_size_used):
         pass
 
-    def optimization_preparation(self, max_f_evals, dimension, number_of_best):
+    def _optimization_preparation(self, max_f_evals, dimension, number_of_best):
         pass
 
-    def start_generation(self, generations_done, generations_after_last_restart):
+    def _start_generation(self, generations_done, generations_after_last_restart):
         pass
 
-    def end_optimization(self, generations_processed, best_member_ever, best_f_value_ever, restarts=None):
+    def _end_optimization(self, generations_processed, best_member_ever, best_f_value_ever, restarts=None):
         pass
 
-    def restart(self):
+    def _restart(self):
         pass
 
-    def archive(self, archive):
+    def _archive(self, archive):
         pass
 
-    def population(self, population, population_f_value):
+    def _population(self, population, population_f_value):
         pass
 
-    def p_best(self, scores_index_sorted, current_worst_i, current_worst_f, current_p_best_i, current_p_best_f,
+    def _p_best(self, scores_index_sorted, current_worst_i, current_worst_f, current_p_best_i, current_p_best_f,
                current_best_i, current_best_f):
         pass
 
-    def update_solution(self, best_member_ever, best_f_value_ever):
+    def _update_solution(self, best_member_ever, best_f_value_ever):
         pass
 
-    def drawn_CR_F(self, drawn_M_CR, drawn_M_F, CR, F):
+    def _drawn_CR_F(self, drawn_M_CR, drawn_M_F, CR, F):
         pass
 
-    def members_for_mutation(self, r1, r2, x_r1, x_r2):
+    def _members_for_mutation(self, r1, r2, x_r1, x_r2):
         pass
 
-    def population_trial(self, x_p_best, population_trial):
+    def _population_trial(self, x_p_best, population_trial):
         pass
 
-    def p_best_draw(self, numbers_of_specimens_to_choose_from, p_best_members_indices):
+    def _p_best_draw(self, numbers_of_specimens_to_choose_from, p_best_members_indices):
         pass
 
-    def swap_population_trial(self, replace_with_trial_coord, population_trial):
+    def _swap_population_trial(self, replace_with_trial_coord, population_trial):
         pass
 
-    def remove_from_archive(self, r):
+    def _remove_from_archive(self, r):
         pass
 
-    def restarting_cond_x(self, numerator, denominator, restart_eps_x, abs=False):
+    def _restarting_cond_x(self, numerator, denominator, restart_eps_x, abs=False):
         pass
 
-    def restarting_cond_y(self, numerator, denominator, restart_eps_y, abs=False):
+    def _restarting_cond_y(self, numerator, denominator, restart_eps_y, abs=False):
         pass
 
-    def restarting_cond(self, type, numerator, denominator, restart_eps, abs=False):
+    def _restarting_cond(self, type, numerator, denominator, restart_eps, abs=False):
         pass
 
-    def restarting_x(self, numerator, denominator, restart_eps_x):
+    def _restarting_x(self, numerator, denominator, restart_eps_x):
         pass
 
-    def restarting_y(self, numerator, denominator, restart_eps_y):
+    def _restarting_y(self, numerator, denominator, restart_eps_y):
         pass
 
-    def restarting(self, generations_after_last_restart, current_best_f):
+    def _restarting(self, generations_after_last_restart, current_best_f):
         pass
 
     # SHADE
-    def SHADE_init(self, H, initial_M_CR, initial_M_F):
+    def _SHADE_init(self, H, initial_M_CR, initial_M_F):
         pass
 
-    def unsuccessful_generation(self):
+    def _unsuccessful_generation(self):
         pass
 
-    def indices_for_swap(self, f_difference, delta_f, indices_for_swap):
+    def _indices_for_swap(self, f_difference, delta_f, indices_for_swap):
         pass
 
-    def new_CR_F(self, w, win_CR, mean_CR, win_F, mean_F):
+    def _new_CR_F(self, w, win_CR, mean_CR, win_F, mean_F):
         pass
 
-    def updated_CR_F(self, M_CR, M_F):
+    def _updated_CR_F(self, M_CR, M_F):
         pass
 
-    def attempts_of_back_to_domain(self, attempts):
+    def _attempts_of_back_to_domain(self, attempts):
         pass
 
     # DElo
-    def DElo_init(self, portion_of_top_players, player_elo_rating_rate,
+    def _DElo_init(self, portion_of_top_players, player_elo_rating_rate,
                   task_elo_rating_rate, number_of_players):
         pass
 
-    def improper_player_amount(self, players_amount):
+    def _improper_player_amount(self, players_amount):
         pass
 
-    def elo_ratings(self, expected_results, actual_results, player_update,
+    def _elo_ratings(self, expected_results, actual_results, player_update,
                     players_rating, task_updates, task_ratings):
         pass
 
-    def top_players(self, top_players_indexes, top_players_indexes_r):
+    def _top_players(self, top_players_indexes, top_players_indexes_r):
         pass
 
-    def indices_of_selected_players(self, indexes_of_selected_players):
+    def _indices_of_selected_players(self, indexes_of_selected_players):
         pass
 
-    def actual_results(self, actual_results):
+    def _actual_results(self, actual_results):
         pass
 
-    def log_error(self, name, info):
+    def _log_error(self, name, info):
         pass
 
-    def log_warning(self, name, info):
+    def _log_warning(self, name, info):
         pass
 
-    def turn_off(self):
+    def _turn_off(self):
         pass
 
     # DElo_Ties
-    def DElo_ties_init(self, history_for_ties, win_tie, tie_loss):
+    def _DElo_ties_init(self, history_for_ties, win_tie, tie_loss):
         pass
 
     # DElo_TQI
-    def joint_init(self, *args):
+    def _joint_init(self, *args):
         pass
 
-    def joint_elo_ratings(self, *args):
+    def _joint_elo_ratings(self, *args):
         pass
 
 
@@ -185,11 +185,11 @@ class Logger:
                                 'indices_of_drawn_players_to_optimize', 'indices_of_selected_players']
         self.optimizer_name = optimizer_name
 
-    def log_multiple(self, **kwargs):
+    def _log_multiple(self, **kwargs):
         for name, info in kwargs.items():
-            self.log(name, info, name in self.array_variables)
+            self._log(name, info, name in self.array_variables)
 
-    def log(self, name, info, array=None):
+    def _log(self, name, info, array=None):
         if self.what_to_log is not None and not name in self.what_to_log:
             return  # do not log anything
         if array is None:
@@ -202,216 +202,216 @@ class Logger:
         self.pythonLoggerAdapter.debug(info, extra)
 
     # AbstractDE
-    def AbstractDE_init(self, restart_eps_x, restart_eps_y, use_archive,
-                        archive_size, population_size, p_best_rate,
-                        variation_for_CR, scale_for_F):
-        self.log("info", "Optimizer initialised")
-        self.log("restart_eps_x", restart_eps_x)
-        self.log("restart_eps_y", restart_eps_y)
-        self.log("use_archive", use_archive)
-        self.log("archive_size", archive_size)
-        self.log("population_size", population_size)
-        self.log("p_best_rate", p_best_rate)
-        self.log("variation_for_CR", variation_for_CR)
-        self.log("scale_for_F", scale_for_F)
+    def _AbstractDE_init(self, restart_eps_x, restart_eps_y, use_archive,
+                         archive_size, population_size, p_best_rate,
+                         variation_for_CR, scale_for_F):
+        self._log("info", "Optimizer initialised")
+        self._log("restart_eps_x", restart_eps_x)
+        self._log("restart_eps_y", restart_eps_y)
+        self._log("use_archive", use_archive)
+        self._log("archive_size", archive_size)
+        self._log("population_size", population_size)
+        self._log("p_best_rate", p_best_rate)
+        self._log("variation_for_CR", variation_for_CR)
+        self._log("scale_for_F", scale_for_F)
 
-    def start_optimization(self, rng_seed):
-        self.log('info', 'Optimization started')
-        self.log("rng_seed", rng_seed)
+    def _start_optimization(self, rng_seed):
+        self._log('info', 'Optimization started')
+        self._log("rng_seed", rng_seed)
 
-    def function_not_Describedfunction(self):
-        self.log_error('start', 'Optimization started with a function that is not of Describedfunction class')
+    def _function_not_Describedfunction(self):
+        self._log_error('start', 'Optimization started with a function that is not of Describedfunction class')
 
-    def improper_population_size(self, pop_size_given, pop_size_used):
-        self.log_warning('improper_population_size', f'pop_size_given={pop_size_given}, pop_size_used={pop_size_used}')
+    def _improper_population_size(self, pop_size_given, pop_size_used):
+        self._log_warning('improper_population_size', f'pop_size_given={pop_size_given}, pop_size_used={pop_size_used}')
 
-    def optimization_preparation(self, max_f_evals, dimension, number_of_best):
-        self.log('max_f_evals', max_f_evals)
-        self.log('dimension', dimension)
-        self.log('number_of_best', number_of_best)
+    def _optimization_preparation(self, max_f_evals, dimension, number_of_best):
+        self._log('max_f_evals', max_f_evals)
+        self._log('dimension', dimension)
+        self._log('number_of_best', number_of_best)
 
-    def start_generation(self, generations_done, generations_after_last_restart):
-        self.log('info', 'next generation started')
-        self.log('generations_done', generations_done)
-        self.log('generations_after_last_restart', generations_after_last_restart)
+    def _start_generation(self, generations_done, generations_after_last_restart):
+        self._log('info', 'next generation started')
+        self._log('generations_done', generations_done)
+        self._log('generations_after_last_restart', generations_after_last_restart)
 
-    def end_optimization(self, generations_processed, best_member_ever, best_f_value_ever, restarts=None):
-        self.log('info', f'Optimization ended')
-        self.log('generations_processed', generations_processed)
-        self.log('found_solution', best_member_ever, array=True)
-        self.log('value_of_found_solution', best_f_value_ever)
+    def _end_optimization(self, generations_processed, best_member_ever, best_f_value_ever, restarts=None):
+        self._log('info', f'Optimization ended')
+        self._log('generations_processed', generations_processed)
+        self._log('found_solution', best_member_ever, array=True)
+        self._log('value_of_found_solution', best_f_value_ever)
         if restarts:  # for backward compatibility, when number of restarts was not logged
-            self.log('restarts', restarts)
+            self._log('restarts', restarts)
 
-    def restart(self):
-        self.log('info', 'restart_search')
+    def _restart(self):
+        self._log('info', 'restart_search')
 
-    def archive(self, archive):
-        self.log('archive', archive, array=True)
+    def _archive(self, archive):
+        self._log('archive', archive, array=True)
 
-    def population(self, population, population_f_value):
-        self.log('population', population, array=True)
-        self.log('population_f_value', population_f_value, array=True)
+    def _population(self, population, population_f_value):
+        self._log('population', population, array=True)
+        self._log('population_f_value', population_f_value, array=True)
 
-    def p_best(self, scores_index_sorted, current_worst_i, current_worst_f, current_p_best_i, current_p_best_f,
-               current_best_i, current_best_f):
-        self.log('scores_index_sorted', scores_index_sorted, array=True)
-        self.log('current_worst_i', current_worst_i)
-        self.log('current_worst_f', current_worst_f)
-        self.log('current_p_best_i', current_p_best_i, array=True)
-        self.log('current_p_best_f', current_p_best_f, array=True)
-        self.log('current_best_i', current_best_i)
-        self.log('current_best_f', current_best_f)
+    def _p_best(self, scores_index_sorted, current_worst_i, current_worst_f, current_p_best_i, current_p_best_f,
+                current_best_i, current_best_f):
+        self._log('scores_index_sorted', scores_index_sorted, array=True)
+        self._log('current_worst_i', current_worst_i)
+        self._log('current_worst_f', current_worst_f)
+        self._log('current_p_best_i', current_p_best_i, array=True)
+        self._log('current_p_best_f', current_p_best_f, array=True)
+        self._log('current_best_i', current_best_i)
+        self._log('current_best_f', current_best_f)
 
-    def update_solution(self, best_member_ever, best_f_value_ever):
-        self.log('info', 'best_member_ever and best_f_value_ever update')
-        self.log('best_member_ever', best_member_ever, array=True)
-        self.log('best_f_value_ever', best_f_value_ever)
+    def _update_solution(self, best_member_ever, best_f_value_ever):
+        self._log('info', 'best_member_ever and best_f_value_ever update')
+        self._log('best_member_ever', best_member_ever, array=True)
+        self._log('best_f_value_ever', best_f_value_ever)
 
-    def drawn_CR_F(self, drawn_M_CR, drawn_M_F, CR, F):
-        self.log('drawn_M_CR', drawn_M_CR, array=True)
-        self.log('drawn_M_F', drawn_M_F, array=True)
-        self.log('CR', CR, array=True)
-        self.log('F', F, array=True)
+    def _drawn_CR_F(self, drawn_M_CR, drawn_M_F, CR, F):
+        self._log('drawn_M_CR', drawn_M_CR, array=True)
+        self._log('drawn_M_F', drawn_M_F, array=True)
+        self._log('CR', CR, array=True)
+        self._log('F', F, array=True)
 
-    def members_for_mutation(self, r1, r2, x_r1, x_r2):
-        self.log("indices_for_mutation", np.array((r1, r2)), array=True)
-        self.log("random_members_for_mutation", np.array((x_r1, x_r2)), array=True)
+    def _members_for_mutation(self, r1, r2, x_r1, x_r2):
+        self._log("indices_for_mutation", np.array((r1, r2)), array=True)
+        self._log("random_members_for_mutation", np.array((x_r1, x_r2)), array=True)
 
-    def population_trial(self, x_p_best, population_trial):
-        self.log("x_p_best", x_p_best, array=True)
-        self.log("population_trial", population_trial, array=True)
+    def _population_trial(self, x_p_best, population_trial):
+        self._log("x_p_best", x_p_best, array=True)
+        self._log("population_trial", population_trial, array=True)
 
-    def p_best_draw(self, numbers_of_specimens_to_choose_from, p_best_members_indices):
-        self.log("numbers_of_specimens_to_choose_from", numbers_of_specimens_to_choose_from, array=True)
-        self.log("pbest_members_indices", p_best_members_indices, array=True)
+    def _p_best_draw(self, numbers_of_specimens_to_choose_from, p_best_members_indices):
+        self._log("numbers_of_specimens_to_choose_from", numbers_of_specimens_to_choose_from, array=True)
+        self._log("pbest_members_indices", p_best_members_indices, array=True)
 
-    def swap_population_trial(self, replace_with_trial_coord, population_trial):
-        self.log("swap", replace_with_trial_coord, array=True)
-        self.log("swapped_population_trial", population_trial, array=True)
+    def _swap_population_trial(self, replace_with_trial_coord, population_trial):
+        self._log("swap", replace_with_trial_coord, array=True)
+        self._log("swapped_population_trial", population_trial, array=True)
 
-    def remove_from_archive(self, r):
-        self.log("remove_from_archive", r, array=True)
+    def _remove_from_archive(self, r):
+        self._log("remove_from_archive", r, array=True)
 
-    def restarting_cond_x(self, numerator, denominator, restart_eps_x, abs=False):
-        self.restarting_cond("x", numerator, denominator, restart_eps_x, abs=abs)
+    def _restarting_cond_x(self, numerator, denominator, restart_eps_x, abs=False):
+        self._restarting_cond("x", numerator, denominator, restart_eps_x, abs=abs)
 
-    def restarting_cond_y(self, numerator, denominator, restart_eps_y, abs=False):
-        self.restarting_cond("y", numerator, denominator, restart_eps_y, abs=abs)
+    def _restarting_cond_y(self, numerator, denominator, restart_eps_y, abs=False):
+        self._restarting_cond("y", numerator, denominator, restart_eps_y, abs=abs)
 
-    def restarting_cond(self, type, numerator, denominator, restart_eps, abs=False):
-        self.log('restarting', type + ' restart condition met')
+    def _restarting_cond(self, type, numerator, denominator, restart_eps, abs=False):
+        self._log('restarting', type + ' restart condition met')
         if abs:
             denominator = 1
         if denominator != 0:
-            self.log(f'{type}-restarting_value',
+            self._log(f'{type}-restarting_value',
                      f'{numerator / denominator} which is smaller than restart_eps_{type}={restart_eps}')
         else:
-            self.log(f'{type}-restarting_value',
+            self._log(f'{type}-restarting_value',
                      f'0 which is smaller than restart_eps_{type}={restart_eps}')
 
-    def restarting(self, generations_after_last_restart, current_best_f):
-        self.log('generations_after_last_restart_restarting', generations_after_last_restart)
-        self.log('best_f_after_last_restart_restarting', current_best_f)
+    def _restarting(self, generations_after_last_restart, current_best_f):
+        self._log('generations_after_last_restart_restarting', generations_after_last_restart)
+        self._log('best_f_after_last_restart_restarting', current_best_f)
 
-    def attempts_of_back_to_domain(self, attempts):
-        self.log('attempts_of_back_to_domain', attempts)
+    def _attempts_of_back_to_domain(self, attempts):
+        self._log('attempts_of_back_to_domain', attempts)
 
     # SHADE
-    def SHADE_init(self, H, initial_M_CR, initial_M_F):
-        self.log('info', 'SHADE')
-        self.log('history_size', H)
-        self.log("initial_M_CR", initial_M_CR)
-        self.log("initial_M_F", initial_M_F)
+    def _SHADE_init(self, H, initial_M_CR, initial_M_F):
+        self._log('info', 'SHADE')
+        self._log('history_size', H)
+        self._log("initial_M_CR", initial_M_CR)
+        self._log("initial_M_F", initial_M_F)
 
-    def unsuccessful_generation(self):
-        self.log('info', 'this generation was unsuccessful')
+    def _unsuccessful_generation(self):
+        self._log('info', 'this generation was unsuccessful')
 
-    def indices_for_swap(self, f_difference, delta_f, indices_for_swap):
-        self.log('f_difference', f_difference, array=True)
-        self.log('delta_f', delta_f, array=True)
-        self.log('indices_for_swap', indices_for_swap, array=True)
-        self.log('number_of_improvements_this_generation', sum(indices_for_swap))
-        self.log('S', sum(delta_f))
+    def _indices_for_swap(self, f_difference, delta_f, indices_for_swap):
+        self._log('f_difference', f_difference, array=True)
+        self._log('delta_f', delta_f, array=True)
+        self._log('indices_for_swap', indices_for_swap, array=True)
+        self._log('number_of_improvements_this_generation', sum(indices_for_swap))
+        self._log('S', sum(delta_f))
 
-    def new_CR_F(self, w, win_CR, mean_CR, win_F, mean_F):
-        self.log('w', w, array=True)
-        self.log('win_CR', win_CR, array=True)
-        self.log('new_mean_M_CR', mean_CR, array=True)
-        self.log('win_F', win_F, array=True)
-        self.log('new_mean_M_F', mean_F, array=True)
+    def _new_CR_F(self, w, win_CR, mean_CR, win_F, mean_F):
+        self._log('w', w, array=True)
+        self._log('win_CR', win_CR, array=True)
+        self._log('new_mean_M_CR', mean_CR, array=True)
+        self._log('win_F', win_F, array=True)
+        self._log('new_mean_M_F', mean_F, array=True)
 
-    def updated_CR_F(self, M_CR, M_F):
-        self.log('updated_M_CR', M_CR, array=True)
-        self.log('updated_M_F', M_F, array=True)
+    def _updated_CR_F(self, M_CR, M_F):
+        self._log('updated_M_CR', M_CR, array=True)
+        self._log('updated_M_F', M_F, array=True)
 
     # DElo
-    def DElo_init(self, portion_of_top_players, player_elo_rating_rate,
-                  task_elo_rating_rate, number_of_players):
-        self.log("info", self.optimizer_name)
-        self.log("portion_of_top_players", portion_of_top_players)
-        self.log("player_elo_rating_rate", player_elo_rating_rate)
-        self.log("task_elo_rating_rate", task_elo_rating_rate)
-        self.log("number of players", number_of_players)
+    def _DElo_init(self, portion_of_top_players, player_elo_rating_rate,
+                   task_elo_rating_rate, number_of_players):
+        self._log("info", self.optimizer_name)
+        self._log("portion_of_top_players", portion_of_top_players)
+        self._log("player_elo_rating_rate", player_elo_rating_rate)
+        self._log("task_elo_rating_rate", task_elo_rating_rate)
+        self._log("number of players", number_of_players)
 
-    def improper_player_amount(self, players_amount):
-        self.log_warning('players amount',
+    def _improper_player_amount(self, players_amount):
+        self._log_warning('players amount',
                          f'`players_amount` = {players_amount} is not a square of natural number.')
 
-    def elo_ratings(self, expected_results, actual_results, player_updates,
-                    player_ratings, task_updates, task_ratings):
-        self.log('expected_results', expected_results, array=True)
-        self.log('actual_results', actual_results, array=True)
-        self.log('player_updates', player_updates, array=True)
-        self.log('player_ratings', player_ratings, array=True)
-        self.log('task_updates', task_updates, array=True)
-        self.log('task_ratings', task_ratings, array=True)
+    def _elo_ratings(self, expected_results, actual_results, player_updates,
+                     player_ratings, task_updates, task_ratings):
+        self._log('expected_results', expected_results, array=True)
+        self._log('actual_results', actual_results, array=True)
+        self._log('player_updates', player_updates, array=True)
+        self._log('player_ratings', player_ratings, array=True)
+        self._log('task_updates', task_updates, array=True)
+        self._log('task_ratings', task_ratings, array=True)
 
-    def top_players(self, top_players_indices, top_players_indices_r):
-        self.log('top_players_indices', top_players_indices, array=True)
-        self.log('indices_of_drawn_players_to_optimize', top_players_indices_r, array=True)
+    def _top_players(self, top_players_indices, top_players_indices_r):
+        self._log('top_players_indices', top_players_indices, array=True)
+        self._log('indices_of_drawn_players_to_optimize', top_players_indices_r, array=True)
 
-    def indices_of_selected_players(self, indices_of_selected_players):
-        self.log('indices_of_selected_players', indices_of_selected_players, array=True)
+    def _indices_of_selected_players(self, indices_of_selected_players):
+        self._log('indices_of_selected_players', indices_of_selected_players, array=True)
 
     # DElo_ties
-    def DElo_ties_init(self, history_for_ties, win_tie, tie_loss):
-        self.log("history_for_ties_size", history_for_ties)
-        self.log("win_tie_boundary", win_tie)
-        self.log("tie_loss_boundary", tie_loss)
+    def _DElo_ties_init(self, history_for_ties, win_tie, tie_loss):
+        self._log("history_for_ties_size", history_for_ties)
+        self._log("win_tie_boundary", win_tie)
+        self._log("tie_loss_boundary", tie_loss)
 
     # DElo_TQI
-    def joint_init(self, history_for_ties, win_tie, tie_loss, expectation_factor, player_elo_rating_rate_MOV,
-                   task_elo_rating_rate_MOV):
-        self.log("history_for_ties_size", history_for_ties)
-        self.log("win_tie_boundary", win_tie)
-        self.log("tie_loss_boundary", tie_loss)
-        self.log('expectation_factor', expectation_factor, False)
-        self.log('player_elo_rating_rate_MOV', player_elo_rating_rate_MOV, False)
-        self.log('task_elo_rating_rate_MOV', task_elo_rating_rate_MOV, False)
+    def _joint_init(self, history_for_ties, win_tie, tie_loss, expectation_factor, player_elo_rating_rate_MOV,
+                    task_elo_rating_rate_MOV):
+        self._log("history_for_ties_size", history_for_ties)
+        self._log("win_tie_boundary", win_tie)
+        self._log("tie_loss_boundary", tie_loss)
+        self._log('expectation_factor', expectation_factor, False)
+        self._log('player_elo_rating_rate_MOV', player_elo_rating_rate_MOV, False)
+        self._log('task_elo_rating_rate_MOV', task_elo_rating_rate_MOV, False)
 
-    def joint_elo_ratings(self, victory_odds, were_victorious, expected_relative_difference, actual_relative_difference,
-                          player_updates, player_ratings, task_updates, task_ratings):
-        self.log('victory_odds', victory_odds, array=True)
-        self.log('were_victorious', were_victorious, array=True)
-        self.log('expected_relative_difference', expected_relative_difference, array=True)
-        self.log('actual_relative_difference', actual_relative_difference, array=True)
-        self.log('player_updates', player_updates, array=True)
-        self.log('player_ratings', player_ratings, array=True)
-        self.log('task_updates', task_updates, array=True)
-        self.log('task_ratings', task_ratings, array=True)
+    def _joint_elo_ratings(self, victory_odds, were_victorious, expected_relative_difference, actual_relative_difference,
+                           player_updates, player_ratings, task_updates, task_ratings):
+        self._log('victory_odds', victory_odds, array=True)
+        self._log('were_victorious', were_victorious, array=True)
+        self._log('expected_relative_difference', expected_relative_difference, array=True)
+        self._log('actual_relative_difference', actual_relative_difference, array=True)
+        self._log('player_updates', player_updates, array=True)
+        self._log('player_ratings', player_ratings, array=True)
+        self._log('task_updates', task_updates, array=True)
+        self._log('task_ratings', task_ratings, array=True)
 
-    def log_error(self, name, info):
+    def _log_error(self, name, info):
         extra = {'logname': name}
         self.pythonLoggerAdapter = logging.LoggerAdapter(self.pythonLogger, extra)
         self.pythonLoggerAdapter.error(info, extra)
 
-    def log_warning(self, name, info):
+    def _log_warning(self, name, info):
         extra = {'logname': name}
         self.pythonLoggerAdapter = logging.LoggerAdapter(self.pythonLogger, extra)
         self.pythonLoggerAdapter.warning(info)
 
-    def turn_off(self):
+    def _turn_off(self):
         for h in self.pythonLogger.handlers:
             self.pythonLogger.removeHandler(h)
 

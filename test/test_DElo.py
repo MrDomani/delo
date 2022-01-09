@@ -78,7 +78,7 @@ class TestSelectionMethods(unittest.TestCase):
         self.delo._crossover()
         self.delo._evaluate()
         f_difference = self.delo._population_f_value - self.delo._population_trial_f_value
-        self.delo.indices_for_swap = (f_difference >= 0)
+        self.delo._indices_for_swap = (f_difference >= 0)
 
     def test_calculate_expected_results(self):
         success_odds = self.delo._calculate_expected_results()

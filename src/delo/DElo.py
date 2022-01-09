@@ -120,14 +120,14 @@ class DElo(AbstractDE):
 
         self._initialize_players(players_amount)
 
-        self.logger.DElo_init(portion_of_top_players, self.player_elo_rating_rate,
-                              self.task_elo_rating_rate, self.players.number_of_players)
+        self.logger._DElo_init(portion_of_top_players, self.player_elo_rating_rate,
+                               self.task_elo_rating_rate, self.players.number_of_players)
 
     def _initialize_players(self, players_amount):
         side_grid_length = int(np.sqrt(players_amount).round())
         actual_player_amount = side_grid_length ** 2
         if players_amount != actual_player_amount:
-            self.logger.improper_player_amount(players_amount)
+            self.logger._improper_player_amount(players_amount)
             warn('`players_amount` is not a square of natural number.')
         self.players = self.Players(number_of_players=actual_player_amount,
                                     id=np.arange(actual_player_amount),
@@ -151,7 +151,7 @@ class DElo(AbstractDE):
                         np.column_stack((self._CR, self._F))).argmin(axis=0)
         self._indices_of_selected_players = indices
 
-        self.logger.indices_of_selected_players(self._indices_of_selected_players)
+        self.logger._indices_of_selected_players(self._indices_of_selected_players)
 
     def _draw_M_CR_and_M_F(self):
         quantile = 1-self.portion_of_top_players
@@ -159,7 +159,7 @@ class DElo(AbstractDE):
         top_players_indexes = np.arange(self.players.number_of_players)[top_players_bool]
         r = self.rng.choice(top_players_indexes.shape[0], size=self.population_size, replace=True)
 
-        self.logger.top_players(top_players_indexes, top_players_indexes[r])
+        self.logger._top_players(top_players_indexes, top_players_indexes[r])
 
         return self.players.CR[top_players_indexes[r]], self.players.F[top_players_indexes[r]]
 
@@ -194,8 +194,8 @@ class DElo(AbstractDE):
         task_updates = self.task_elo_rating_rate * (expected_results - actual_results)
         self._task_ratings += task_updates
 
-        self.logger.elo_ratings(expected_results, actual_results, player_update,
-                                self.players.rating, task_updates, self._task_ratings)
+        self.logger._elo_ratings(expected_results, actual_results, player_update,
+                                 self.players.rating, task_updates, self._task_ratings)
     
     def _check_restart_condition(self):
         """
@@ -213,14 +213,14 @@ class DElo(AbstractDE):
         cond_restart = False
 
         if np.min(self._population.max(axis=0) - self._population.min(axis=0)) <= self.restart_eps_x:
-            self.logger.restarting_cond_x(np.min(self._population.max(axis=0) - self._population.min(axis=0)),
-                                          np.abs(self._population).max(),
-                                          self.restart_eps_x, abs=True)
+            self.logger._restarting_cond_x(np.min(self._population.max(axis=0) - self._population.min(axis=0)),
+                                           np.abs(self._population).max(),
+                                           self.restart_eps_x, abs=True)
             cond_restart = True
         if (self.current_worst_f - self.current_best_f) <= self.restart_eps_y: 
-            self.logger.restarting_cond_y((self.current_worst_f - self.current_best_f),
-                                     abs(self.current_best_f),
-                                     self.restart_eps_y, abs=True)
+            self.logger._restarting_cond_y((self.current_worst_f - self.current_best_f),
+                                           abs(self.current_best_f),
+                                           self.restart_eps_y, abs=True)
             cond_restart = True
 
         return cond_restart

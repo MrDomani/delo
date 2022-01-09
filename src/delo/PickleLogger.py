@@ -17,7 +17,7 @@ class PickleLogger(Logger):
         self.generation_count=0
         self.batch_dict={}
 
-    def log(self, name, info, array=None):
+    def _log(self, name, info, array=None):
         if self.what_to_log is not None and not name in self.what_to_log:
             return
         if array is None:
@@ -25,15 +25,15 @@ class PickleLogger(Logger):
         if array:
             self.batch_dict[name]=info
             info = self.get_filepath_for_nparray(rel_to_logfile=True)
-        super().log(name, info, array=False)
+        super()._log(name, info, array=False)
 
-    def start_generation(self, generations_done, generations_after_last_restart):
+    def _start_generation(self, generations_done, generations_after_last_restart):
         self.log_batch()
-        super().start_generation(generations_done, generations_after_last_restart)
+        super()._start_generation(generations_done, generations_after_last_restart)
 
-    def restarting(self, generations_after_last_restart, current_best_f):
+    def _restarting(self, generations_after_last_restart, current_best_f):
         self.log_batch()
-        super().restarting(generations_after_last_restart, current_best_f)
+        super()._restarting(generations_after_last_restart, current_best_f)
 
     def log_batch(self):
         filepath = self.get_filepath_for_nparray()
@@ -75,7 +75,7 @@ class PickleLogReader(LogReader):
     >>> algorithm = delo.DElo(10, logger=logger)
     >>>
     >>> algorithm.optimize(described_function, rng_seed=2022)
-    >>> 
+    >>>
     >>> logreader = delo.PickleLogReader(file_name)
     >>> best_fs = logreader.read_variable('current_best_f')
     Looking for current_best_f in log file

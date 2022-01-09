@@ -114,8 +114,8 @@ class DElo_ties_and_QI(DElo):
         self.tie_loss = tie_loss
         self.history_for_ties = None
 
-        self.logger.joint_init(self.history_for_ties_size, self.win_tie, self.tie_loss,
-                               expectation_factor, player_elo_rating_rate_MOV, task_elo_rating_rate_MOV)
+        self.logger._joint_init(self.history_for_ties_size, self.win_tie, self.tie_loss,
+                                expectation_factor, player_elo_rating_rate_MOV, task_elo_rating_rate_MOV)
         
     def optimize(self, described_function=None, max_f_evals=1000, print_every=None,
                  restarts_handled_externally=False, rng_seed=None):
@@ -141,7 +141,7 @@ class DElo_ties_and_QI(DElo):
         have_improved = (f_difference >= 0)  # True is a win for a player
         self.number_of_improvements += sum(have_improved)
 
-        self.logger.indices_for_swap(f_difference, self.delta_f, have_improved)
+        self.logger._indices_for_swap(f_difference, self.delta_f, have_improved)
         return have_improved
                          
     def _calculate_expected_results(self):
@@ -198,6 +198,6 @@ class DElo_ties_and_QI(DElo):
                        self.task_elo_rating_rate_MOV * (expected_results['relative_difference'] - actual_results['relative_difference'])
         self._task_ratings += task_updates
 
-        self.logger.joint_elo_ratings(expected_results['victory'], actual_results['victory'],
-                                      expected_results['relative_difference'], actual_results['relative_difference'],
-                                      player_update, self.players.rating, task_updates, self._task_ratings)
+        self.logger._joint_elo_ratings(expected_results['victory'], actual_results['victory'],
+                                       expected_results['relative_difference'], actual_results['relative_difference'],
+                                       player_update, self.players.rating, task_updates, self._task_ratings)
