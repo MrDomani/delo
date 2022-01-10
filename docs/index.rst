@@ -21,7 +21,7 @@ In this package, we propose **DElo** (DE with adaptation based on Elo rating sys
 Installation
 ------------
 
-Clone repo and run from root:
+Clone repo from `GitHub <https://github.com/MrDomani/delo>`_ and run from root:
 
     `pip install .`
 
