@@ -106,7 +106,7 @@ class TestAbstractDERestarts(TestAbstractDESetUp):
             self.solver._generations_processed == 10 - 1)  # There were 1003 max_f_evals and 100 of them were used every generation + 100 was used during initization
         self.assertTrue(
             self.solver._remaining_evals == 3)  # After 10 generations, 3 was left and it was less than 100, so optimization stopped
-        self.assertTrue(self.solver._archive.shape[
+        self.assertTrue(self.solver.archive.shape[
                             0] == self.solver.max_archive_size)  # after 3 +- 1 generations archive should be full
         self.assertTrue(self.solver.current_worst_f >= self.solver.current_best_f)  # the best is better than the worst
 
@@ -121,7 +121,7 @@ class TestAbstractDERestarts(TestAbstractDESetUp):
 
         self.solver._restart_search()
         self.assertTrue(self.solver.restarts == 1)  # there was one non-initial restart and 1 initial one
-        np.testing.assert_array_equal(self.solver._archive.shape, np.array([0,
+        np.testing.assert_array_equal(self.solver.archive.shape, np.array([0,
                                                                             5]))  # archive is ampty; WARNING(once this test failed, but I didn't save the seed. Do this if it happen for future investigation)
         self.assertTrue(
             best_f_value_ever < self.solver.current_best_f)  # It is highly unlikely, the better solution will be drawn from random

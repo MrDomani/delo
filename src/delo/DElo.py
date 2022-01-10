@@ -113,7 +113,7 @@ class DElo(AbstractDE):
 
         self.number_of_improvements = 0
 
-        if portion_of_top_players > 1 or portion_of_top_players < 1/population_size:
+        if portion_of_top_players > 1 or portion_of_top_players < 1/players_amount:
             raise portion_of_top_playersImproperException()
         self.portion_of_top_players = portion_of_top_players
 

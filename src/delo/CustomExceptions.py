@@ -54,7 +54,7 @@ class p_best_rateOutOf01Exception(Exception):
         super().__init__(self.message)
 
 class portion_of_top_playersImproperException(Exception):
-    def __init__(self, message=''):
+    def __init__(self, message='The portion_of_top_players parameter has to be between 1/players_amount and 1'):
         self.message = message
         super().__init__(self.message)
 
